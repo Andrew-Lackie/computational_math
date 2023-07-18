@@ -2,6 +2,8 @@
 #define ASSERTIONS_H
 
 #include <stdbool.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
 #define LOG_WARN_ENABLED 1
 #define LOG_INFO_ENABLED 1
@@ -42,6 +44,21 @@ void log_output(log_level level, const char* message, ...);
 #else
 //Does nothing if LOG_WARN_ENABLED != 1
 #define LOG_WARN(message, ...)
+#endif
+
+#if LOG_INFO_ENABLED == 1
+// Logs an info message
+#define LOG_INFO(message, ...) log_output(LOG_LEVEL_INFO, message, ##__VA_ARGS__);
+#else
+//Does nothing if LOG_INFO_ENABLED != 1
+#define LOG_INFO(message, ...)
+#endif
+
+#if LOG_DEBUG_ENABLED == 1
+#define LOG_DEBUG(message, ...) log_output(LOG_LEVEL_DEBUG, message, ##__VA_ARGS__);
+#else
+//Does nothing if LOG_DEBUG_ENABLED != 1
+#define LOG_DEBUG(message, ...)
 #endif
 
 #if LOG_TRACE_ENABLED == 1

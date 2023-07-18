@@ -2,6 +2,7 @@
 #define _DEFINES_H
 
 #include "assert/logger.h"
+#include <assert.h>
 
 /* UNSIGNED INT TYPES. */
 
@@ -68,5 +69,42 @@ static_assert(sizeof(f32) == 4, "Expected f32 to be 4 bytes.");
 
 // Assert f64 to be 8 bytes.
 static_assert(sizeof(f64) == 8, "Expected f64 to be 8 bytes.");
+
+/**
+ * Gets the number of bytes from amount of gibibytes (GiB) (1024*1024*1024)
+ **/
+
+#define GIBIBYTES(amount) ((u64)(amount) * 1024ULL * 1024ULL * 1024ULL)
+
+/**
+ * Gets the number of bytes from amount of mebibytes (GiB) (1024*1024*1024)
+ **/
+
+#define MEBIBYTES(amount) ((u64)(amount) * 1024ULL * 1024ULL)
+
+/**
+ * Gets the number of bytes from amount of kibibytes (GiB) (1024*1024*1024)
+ **/
+
+#define KIBIBYTES(amount) ((u64)(amount) * 1024ULL)
+
+/**
+ * Gets the number of bytes from amount of gigabytes (GB) (1000*1000*1000)
+ **/
+
+#define GIGABYTES(amount) ((u64)(amount) * 1000ULL * 1000ULL * 1000ULL)
+
+/**
+ * Gets the number of bytes from amount of megabytes (GB) (1000*1000*1000)
+ **/
+
+#define MEGABYTES(amount) ((u64)(amount) * 1000ULL * 1000ULL)
+
+/**
+ * Gets the number of bytes from amount of kilobytes (GB) (1000*1000*1000)
+ **/
+
+#define KILOBYTES(amount) ((u64)(amount) * 1000ULL)
+
 
 #endif
