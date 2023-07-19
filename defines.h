@@ -71,6 +71,12 @@ static_assert(sizeof(f32) == 4, "Expected f32 to be 4 bytes.");
 static_assert(sizeof(f64) == 8, "Expected f64 to be 8 bytes.");
 
 /**
+ * Gets number of arguments when using the __VA_ARGS__ macro
+ **/
+
+#define NUMARGS(type, ...) (sizeof((type[]){0.0f, ##__VA_ARGS__}) / sizeof(type) - 1)
+
+/**
  * Gets the number of bytes from amount of gibibytes (GiB) (1024*1024*1024)
  **/
 
@@ -105,6 +111,5 @@ static_assert(sizeof(f64) == 8, "Expected f64 to be 8 bytes.");
  **/
 
 #define KILOBYTES(amount) ((u64)(amount) * 1000ULL)
-
 
 #endif

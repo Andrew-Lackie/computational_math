@@ -11,11 +11,7 @@
 #define ARRAY_SIZE(a) ( (sizeof(a)) / sizeof((a.elements[0])) )
 
 /**
- * Memory Allocator
- **/
-
-/**
- * N dimensional array f32
+ * Vector struct
  **/
 
 typedef struct {
@@ -24,35 +20,48 @@ typedef struct {
 } m_vector;
 
 /**
- * Memory allocator
+ * Function and macro to create a new vector
  **/
 
-m_vector allocate(u64 size);
+m_vector new_vector(u64 numArgs, ...);
+
+#define vector(...) new_vector(NUMARGS(f32, __VA_ARGS__), ##__VA_ARGS__)
 
 /**
- * Memory allocator with default value
+ * Function and macro to create a new complex vector
  **/
 
-m_vector construct_default(u64 size, f32 val);
+m_vector new_complex_vector(u64 numArgs, ...);
 
-/**
- * Memory allocator for empty array
- **/
+#define vector_c(...) new_complex_vector(NUMARGS(f32, __VA_ARGS__), ##__VA_ARGS__)
 
-m_vector construct_empty(u64 size);
+void print_vec(m_vector vec);
 
-/**
- * Function to create a new vector
- **/
+/* vector functions */
 
-m_vector new_m_vector(u32 numArgs, ...);
+// Equality
 
-/**
- * Macros to allocate custom type dynamically allocated vectors
- **/
+bool m_vector_equal(m_vector, m_vector);
 
-#define NUM_ARGS(type, ...) (((type[]){0.0f, ##__VA_ARGS__}) / (sizeof(type) - 1))
-#define vector(...) new_m_vector(NUM_ARGS(__VA_ARGS__), ##__VA_ARGS__)
+// Add
+
+m_vector m_vector_add(m_vector, m_vector);
+
+// Subtract
+
+m_vector m_vector_sub(m_vector, m_vector);
+
+// Multi
+
+m_vector m_vector_multi(m_vector, m_vector);
+
+// Dot Product
+
+u32 m_vector_dot(m_vector, m_vector);
+
+// Cross Product
+
+m_vector m_vector_x(m_vector, m_vector);
 
 /**
  * Real unit vectors
@@ -111,31 +120,5 @@ extern const m_vector VECTOR_C_NEG_4X_UNIT;
 extern const m_vector VECTOR_C_NEG_4Y_UNIT;
 extern const m_vector VECTOR_C_NEG_4Z_UNIT;
 extern const m_vector VECTOR_C_NEG_4W_UNIT;
-
-/* vector functions */
-
-// Equality
-
-bool m_vector_equal(m_vector, m_vector);
-
-// Add
-
-m_vector m_vector_add(m_vector, m_vector);
-
-// Subtract
-
-m_vector m_vector_sub(m_vector, m_vector);
-
-// Multi
-
-m_vector m_vector_multi(m_vector, m_vector);
-
-// Dot Product
-
-u32 m_vector_dot(m_vector, m_vector);
-
-// Cross Product
-
-m_vector m_vector_x(m_vector, m_vector);
 
 #endif
