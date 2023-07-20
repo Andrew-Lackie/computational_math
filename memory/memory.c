@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 #include <inttypes.h>
 #include "memory.h"
 #include "../assert/logger.h"
+#include "../assert/asserts.h"
 
 static const char* memory_tag_strings[MEMORY_TAG_MAX_TAGS] = {
     "UNKNOWN    ",
@@ -27,8 +27,8 @@ void initialize_memory() {
 
 static void memset_aligned(void *block, char byte, size_t n_bytes)
 {
-    assert((n_bytes & 0x0F) == 0);
-    assert(((uintptr_t)block & 0x0F) == 0);
+    M_ASSERT_MSG((n_bytes & 0x0F) == 0, "n_bytes & 0X00F != 0");
+    M_ASSERT_MSG(((uintptr_t)block & 0x0F) == 0, "(unintptr)block & 0x0F is not 0");
     memset(block, byte, n_bytes);
 }
 
