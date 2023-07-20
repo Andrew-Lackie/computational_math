@@ -121,4 +121,9 @@ extern const m_vector VECTOR_C_NEG_4Y_UNIT;
 extern const m_vector VECTOR_C_NEG_4Z_UNIT;
 extern const m_vector VECTOR_C_NEG_4W_UNIT;
 
+// Init vector constants
+
+void initialize_vectors();
+
+
 #endif

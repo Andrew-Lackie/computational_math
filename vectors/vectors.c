@@ -197,30 +197,30 @@ m_vector m_vector_x(m_vector u, m_vector v) {
 /* Real unit vectors */
 
 // Positive
-/*const m_vector VECTOR_R_POS_2X_UNIT = { 2, { 1.0f, 0.0 }};*/
-/*const m_vector VECTOR_R_POS_2Y_UNIT = { 2, { 0, 1.0f }};*/
+/*const m_vector VECTOR_R_POS_2X_UNIT = vector(1.0f, 0.0f);*/
+/*const m_vector VECTOR_R_POS_2Y_UNIT = vector(0.0f, 1.0f);*/
 
-/*const m_vector VECTOR_R_POS_3X_UNIT = { 3, { 1.0f, 0.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_POS_3Y_UNIT = { 3, { 0.0f, 1.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_POS_3Z_UNIT = { 3, { 0.0f, 0.0f, 1.0f }};*/
+/*const m_vector VECTOR_R_POS_3X_UNIT = vector(1.0f, 0.0f, 0.0f);*/
+/*const m_vector VECTOR_R_POS_3Y_UNIT = vector(0.0f, 1.0f, 0.0f);*/
+/*const m_vector VECTOR_R_POS_3Z_UNIT = vector(0.0f, 0.0f, 1.0f);*/
 
-/*const m_vector VECTOR_R_POS_4X_UNIT = { 4, { 1.0f, 0.0f, 0.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_POS_4Y_UNIT = { 4, { 0.0f, 1.0f, 0.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_POS_4Z_UNIT = { 4, { 0.0f, 0.0f, 1.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_POS_4W_UNIT = { 4, { 0.0f, 0.0f, 0.0f, 1.0f }};*/
+/*const m_vector VECTOR_R_POS_4X_UNIT = vector(1.0f, 0.0f, 0.0f, 0.0f);*/
+/*const m_vector VECTOR_R_POS_4Y_UNIT = vector(0.0f, 1.0f, 0.0f, 0.0f);*/
+/*const m_vector VECTOR_R_POS_4Z_UNIT = vector(0.0f, 0.0f, 1.0f, 0.0f);*/
+/*const m_vector VECTOR_R_POS_4W_UNIT = vector(0.0f, 0.0f, 0.0f, 1.0f);*/
 
 /*// Negative*/
-/*const m_vector VECTOR_R_NEG_2X_UNIT = { 2, { -1.0f, 0.0 }};*/
-/*const m_vector VECTOR_R_NEG_2Y_UNIT = { 2, { 0, -1.0f }};*/
+/*const m_vector VECTOR_R_NEG_2X_UNIT = vector(-1.0f, 0.0f);*/
+/*const m_vector VECTOR_R_NEG_2Y_UNIT = vector(0.0f, -1.0f);*/
 
-/*const m_vector VECTOR_R_NEG_3X_UNIT = { 3, { -1.0f, 0.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_NEG_3Y_UNIT = { 3, { 0.0f, -1.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_NEG_3Z_UNIT = { 3, { 0.0f, 0.0f, -1.0f }};*/
+/*const m_vector VECTOR_R_NEG_3X_UNIT = vector(-1.0f, 0.0f, 0.0f);*/
+/*const m_vector VECTOR_R_NEG_3Y_UNIT = vector(0.0f, -1.0f, 0.0f);*/
+/*const m_vector VECTOR_R_NEG_3Z_UNIT = vector(0.0f, 0.0f, -1.0f);*/
 
-/*const m_vector VECTOR_R_NEG_4X_UNIT = { 4, { -1.0f, 0.0f, 0.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_NEG_4Y_UNIT = { 4, { 0.0f, -1.0f, 0.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_NEG_4Z_UNIT = { 4, { 0.0f, 0.0f, -1.0f, 0.0f }};*/
-/*const m_vector VECTOR_R_NEG_4W_UNIT = { 4, { 0.0f, 0.0f, 0.0f, -1.0f }};*/
+/*const m_vector VECTOR_R_NEG_4X_UNIT = vector(-1.0f, 0.0f, 0.0f, 0.0f);*/
+/*const m_vector VECTOR_R_NEG_4Y_UNIT = vector(0.0f, -1.0f, 0.0f, 0.0f);*/
+/*const m_vector VECTOR_R_NEG_4Z_UNIT = vector(0.0f, 0.0f, -1.0f, 0.0f);*/
+/*const m_vector VECTOR_R_NEG_4W_UNIT = vector(0.0f, 0.0f, 0.0f, -1.0f);*/
 
 /*[> Complex unit vectors <]*/
 

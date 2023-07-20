@@ -34,6 +34,8 @@ void initialize_memory();
 
 void* m_allocate(u64 size, memory_tag tag);
 
+void* m_allocate_aligned(u64 size, memory_tag tag, size_t alignment);
+
 /**
  * Free allocated memory
  **/

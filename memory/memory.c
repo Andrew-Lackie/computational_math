@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
+#include <inttypes.h>
 #include "memory.h"
 #include "../assert/logger.h"
 
@@ -23,6 +25,13 @@ void initialize_memory() {
     memset(&stats, 0, sizeof(stats));
 }
 
+static void memset_aligned(void *block, char byte, size_t n_bytes)
+{
+    assert((n_bytes & 0x0F) == 0);
+    assert(((uintptr_t)block & 0x0F) == 0);
+    memset(block, byte, n_bytes);
+}
+
 void* m_allocate(u64 size, memory_tag tag) {
     if (tag == MEMORY_TAG_UNKNOWN) {
         LOG_WARN("m_allocate called using MEMORY_TAG_UNKNOWN. Re-class this allocation");
@@ -30,10 +39,31 @@ void* m_allocate(u64 size, memory_tag tag) {
     stats.total_allocated += size;
     stats.tagged_allocations[tag] += size;
 
-    void* block = malloc(size);
+    void *block = malloc(size);
     memset(block, 0, size);
 
     return block;
+}
+
+void* m_allocate_aligned(u64 size, memory_tag tag, size_t alignment) {
+    if (tag == MEMORY_TAG_UNKNOWN) {
+        LOG_WARN("m_allocate called using MEMORY_TAG_UNKNOWN. Re-class this allocation");
+    }
+    stats.total_allocated += size;
+    stats.tagged_allocations[tag] += size;
+
+    uintptr_t mask = ~(uintptr_t)(alignment - 1);
+    void *block = malloc(size + alignment - 1);
+    void *ptr = (void *)(((uintptr_t)block + alignment - 1) & mask);
+    assert((alignment & (alignment - 1)) == 0);
+
+    memset_aligned(ptr, 0, size);
+
+    printf("0x%08" PRIXPTR ", 0x%08" PRIXPTR "\n", (uintptr_t)block, (uintptr_t)ptr);
+
+    free(block);
+
+    return ptr;
 }
 
 void m_free(void* block, u64 size, memory_tag tag) {
