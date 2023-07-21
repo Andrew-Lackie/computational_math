@@ -32,9 +32,13 @@ static void memset_aligned(void *block, char byte, size_t n_bytes)
     memset(block, byte, n_bytes);
 }
 
-void* m_allocate(u64 size, memory_tag tag) {
+void* m_allocate(size_t size, memory_tag tag) {
     if (tag == MEMORY_TAG_UNKNOWN) {
         LOG_WARN("m_allocate called using MEMORY_TAG_UNKNOWN. Re-class this allocation");
+    }
+    if (size == 0) {
+        LOG_WARN("m_allocate_aligned size parameter is 0. Returning NULL");
+        return NULL;
     }
     stats.total_allocated += size;
     stats.tagged_allocations[tag] += size;
@@ -45,9 +49,13 @@ void* m_allocate(u64 size, memory_tag tag) {
     return block;
 }
 
-void* m_allocate_aligned(u64 size, memory_tag tag, size_t alignment) {
+void* m_allocate_aligned(size_t size, memory_tag tag, size_t alignment) {
     if (tag == MEMORY_TAG_UNKNOWN) {
-        LOG_WARN("m_allocate called using MEMORY_TAG_UNKNOWN. Re-class this allocation");
+        LOG_WARN("m_allocate_aligned called using MEMORY_TAG_UNKNOWN. Re-class this allocation");
+    }
+    if (size == 0) {
+        LOG_WARN("m_allocate_aligned size parameter is 0. Returning NULL");
+        return NULL;
     }
     stats.total_allocated += size;
     stats.tagged_allocations[tag] += size;
@@ -66,7 +74,7 @@ void* m_allocate_aligned(u64 size, memory_tag tag, size_t alignment) {
     return ptr;
 }
 
-void m_free(void* block, u64 size, memory_tag tag) {
+void m_free(void* block, size_t size, memory_tag tag) {
     if (tag == MEMORY_TAG_UNKNOWN) {
         LOG_WARN("m_free called using MEMORY_TAG_UNKNOWN. Re-class this allocation");
     }
@@ -77,11 +85,11 @@ void m_free(void* block, u64 size, memory_tag tag) {
     free(block);
 }
 
-void* m_copy_memory(void* dest, const void* source, u64 size) {
+void* m_copy_memory(void* dest, const void* source, size_t size) {
     return memcpy(dest, source, size);
 }
 
-void* m_set_memory(void* dest, i32 value, u64 size) {
+void* m_set_memory(void* dest, i32 value, size_t size) {
     return memset(dest, value, size);
 }
 

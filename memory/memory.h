@@ -19,7 +19,7 @@ typedef enum memory_tag {
  **/
 
 typedef struct {
-    u64 total_alloc_size;
+    size_t total_alloc_size;
 } memory_system_configuration;
 
 /**
@@ -32,33 +32,33 @@ void initialize_memory();
  * Allocate memory
  **/
 
-void* m_allocate(u64 size, memory_tag tag);
+void* m_allocate(size_t size, memory_tag tag);
 
-void* m_allocate_aligned(u64 size, memory_tag tag, size_t alignment);
+void* m_allocate_aligned(size_t size, memory_tag tag, size_t alignment);
 
 /**
  * Free allocated memory
  **/
 
-void m_free(void* block, u64 size, memory_tag tag);
+void m_free(void* block, size_t size, memory_tag tag);
 
 /**
  * Zeroes out the provided block of memory
  **/
 
-void* m_zero_memory(void* block, u64 size);
+void* m_zero_memory(void* block, size_t size);
 
 /**
  * Copies the source block to the destination block
  **/
 
-void* m_copy_memory(void* dest, const void* source, u64 size);
+void* m_copy_memory(void* dest, const void* source, size_t size);
 
 /**
  * Initializes each component in the block to a value
  **/
 
-void* m_set_memory(void* dest, i32 value, u64 size);
+void* m_set_memory(void* dest, i32 value, size_t size);
 
 /**
  * Gets the memory usage string

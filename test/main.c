@@ -13,8 +13,6 @@ int main() {
 	initialize_memory();
 
 	/*void *block = m_allocate(4, MEMORY_TAG_ARRAY);*/
-	void *block_aligned = m_allocate_aligned(16, MEMORY_TAG_ARRAY, 4);
-	int val;
 
 	// Test memory allocator
 
@@ -26,13 +24,46 @@ int main() {
 	/*printf("]");*/
 	/*printf("\n");*/
 
+	void *block_aligned = m_allocate_aligned(16, MEMORY_TAG_ARRAY, 4);
+	int val;
+
 	printf("[");
-	for (u32 i = 0; i < 4; i++) {
+	for (size_t i = 0; i < 4; i++) {
 		val = ((f64 *)block_aligned)[i];
 		printf("%d\n", val);
 	}
 	printf("]");
 	printf("\n");
+
+	f32 array[] = {1.0,3.0,2.0};
+
+	f32 value;
+	m_vector vector = vector_n(3, array);
+	printf("SIZEOF VECTOR: %lu\n",sizeof(vector));
+	printf("[");
+	for (size_t i = 0; i < 3; i++) {
+		value = vector.elements[i];
+		printf("%f\n", value);
+	}
+	printf("]");
+	printf("\n");
+
+	f32 double_el(f32 num) {
+		return num * 2.0;
+	}
+
+	f32 value2;
+	m_vector vectorf = vector_f(3, array, double_el);
+
+	printf("[");
+	for (size_t i = 0; i < 3; i++) {
+		value2 = vectorf.elements[i];
+		printf("%f\n", value2);
+	}
+	printf("]");
+	printf("\n");
+
+
 
 	// Test memory alignment
 

@@ -15,7 +15,7 @@
  **/
 
 typedef struct {
-    u32 n;
+    size_t n;
     f32 *elements;
 } m_vector;
 
@@ -23,19 +23,26 @@ typedef struct {
  * Function and macro to create a new vector
  **/
 
-m_vector new_vector(u64 numArgs, ...);
-
+m_vector new_vector(size_t num_args, ...);
 #define vector(...) new_vector(NUMARGS(f32, __VA_ARGS__), ##__VA_ARGS__)
+
+/**
+ * Function to create a new n dimensional vector
+ **/
+
+m_vector vector_n(size_t dim, f32 *arr);
+
+/**
+ * Creates a dynamically allocated vector and performs an operation on each element
+ **/
+
+m_vector vector_f(size_t dim, f32 *arr, f32 (*f)(f32));
 
 /**
  * Function and macro to create a new complex vector
  **/
 
-m_vector new_complex_vector(u64 numArgs, ...);
-
-#define vector_c(...) new_complex_vector(NUMARGS(f32, __VA_ARGS__), ##__VA_ARGS__)
-
-void print_vec(m_vector vec);
+void print_v(m_vector vec);
 
 /* vector functions */
 

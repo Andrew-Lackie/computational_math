@@ -9,7 +9,7 @@
 
 // New vector
 
-m_vector new_vector(u64 dim, ...) {
+m_vector new_vector(size_t dim, ...) {
 
     m_vector vec = { .n = dim };
 
@@ -21,34 +21,56 @@ m_vector new_vector(u64 dim, ...) {
     va_list list;
     va_start(list, dim);
 
-    for (u64 i = 0; i < dim; i++) {
+    for (size_t i = 0; i < dim; i++) {
         vec.elements[i] = va_arg(list, double);
     }
 
     return vec;
 }
 
-m_vector new_complex_vector(u64 dim, ...) {
+m_vector vector_n(size_t dim, f32 *arr) {
 
     m_vector vec = { .n = dim };
 
     void* block_v = m_allocate(dim * sizeof(f32), MEMORY_TAG_ARRAY);
     f32* block_f = (f32*) block_v;
-    *(block_f) = (float complex) *(block_f);
+
+    /*Replace the following with m_copy_memory eventually*/
+    /*m_copy_memory(block_f, arr, dim);*/
+
+    for (size_t i = 0; i < dim; i++) {
+        block_f[i] = arr[i];
+    }
 
     vec.elements = block_f;
 
-    va_list list;
-    va_start(list, dim);
+    return vec;
+}
 
-    for (u64 i = 0; i < dim; i++) {
-        vec.elements[i] = va_arg(list, _Complex);
+m_vector vector_f(size_t dim, f32 *arr, f32 (*f)(f32)) {
+
+    m_vector vec = { .n = dim };
+
+    void* block_v = m_allocate(dim * sizeof(f32), MEMORY_TAG_ARRAY);
+    f32* block_f = (f32*) block_v;
+
+    /*Replace the following with m_copy_memory eventually*/
+    /*m_copy_memory(block_f, arr, dim);*/
+
+    for (size_t i = 0; i < dim; i++) {
+        block_f[i] = arr[i];
+    }
+
+    vec.elements = block_f;
+
+    for (size_t i = 0; i < dim; i++) {
+        vec.elements[i] = f(vec.elements[i]);
     }
 
     return vec;
 }
 
-void print_vec(m_vector v) {
+void print_v(m_vector v) {
     printf("[ ");
 
     for (u32 i = 0; i < v.n; i++) {
@@ -70,7 +92,7 @@ bool m_vector_equal(m_vector u, m_vector v) {
 
     if (u.n != v.n) {return false;}
 
-    for (u32 i = 0; i < u.n; i++) {
+    for (size_t i = 0; i < u.n; i++) {
         if (u.elements[i] == v.elements[i]) {
             return true;
         }
