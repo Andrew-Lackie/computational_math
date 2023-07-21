@@ -58,14 +58,10 @@ m_vector vector_f(size_t dim, f32 *arr, f32 (*f)(f32)) {
     /*m_copy_memory(block_f, arr, dim);*/
 
     for (size_t i = 0; i < dim; i++) {
-        block_f[i] = arr[i];
+        block_f[i] = f(arr[i]);
     }
 
     vec.elements = block_f;
-
-    for (size_t i = 0; i < dim; i++) {
-        vec.elements[i] = f(vec.elements[i]);
-    }
 
     return vec;
 }
