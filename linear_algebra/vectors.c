@@ -69,7 +69,7 @@ m_vector vector_f(size_t dim, f32 *arr, f32 (*f)(f32)) {
 void print_v(m_vector v) {
     printf("[ ");
 
-    for (u32 i = 0; i < v.n; i++) {
+    for (size_t i = 0; i < v.n; i++) {
         printf("%f", v.elements[i]);
 
         if (i < v.n - 1) {
@@ -82,6 +82,22 @@ void print_v(m_vector v) {
     printf("]\n");
 }
 
+char* vector_str(m_vector v) {
+    size_t length = v.n * (v.n - 1) + 2;
+
+    char* str = malloc(v.n * (v.n - 1) + 2);
+
+    str[0] = '{';
+    str[length] = '}';
+
+    for (size_t i = 1; i < length; i+=2) {
+        str[i] = v.elements[i];
+        str[i+1] = ',';
+    }
+
+    return str;
+}
+
 // Equality
 
 bool m_vector_equal(m_vector u, m_vector v) {
@@ -89,11 +105,11 @@ bool m_vector_equal(m_vector u, m_vector v) {
     if (u.n != v.n) {return false;}
 
     for (size_t i = 0; i < u.n; i++) {
-        if (u.elements[i] == v.elements[i]) {
-            return true;
+        if (u.elements[i] != v.elements[i]) {
+            return false;
         }
     }
-    return false;
+    return true;
 }
 
 // Add
@@ -112,7 +128,7 @@ m_vector m_vector_add(m_vector u, m_vector v) {
 
     sum.elements = block_f;
 
-    for (u32 i = 0; i < u.n; i++) {
+    for (size_t i = 0; i < u.n; i++) {
         sum.elements[i] = u.elements[i] + v.elements[i];
     }
     return sum;
@@ -134,7 +150,7 @@ m_vector m_vector_sub(m_vector u, m_vector v) {
 
     diff.elements = block_f;
 
-    for (u32 i = 0; i < u.n; i++) {
+    for (size_t i = 0; i < u.n; i++) {
         diff.elements[i] = u.elements[i] - v.elements[i];
     }
     return diff;
@@ -156,7 +172,7 @@ m_vector m_vector_multi(m_vector u, m_vector v) {
 
     vec.elements = block_f;
 
-    for (u32 i = 0; i < u.n; i++) {
+    for (size_t i = 0; i < u.n; i++) {
         vec.elements[i] = u.elements[i] * v.elements[i];
     }
     return vec;
@@ -174,7 +190,7 @@ u32 m_vector_dot(m_vector u, m_vector v) {
     u32 product;
 
 
-    for (u32 i = 0; i < u.n; i++) {
+    for (size_t i = 0; i < u.n; i++) {
         product += u.elements[i] * v.elements[i];
     }
     return product;

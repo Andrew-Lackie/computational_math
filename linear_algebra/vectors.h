@@ -24,6 +24,7 @@ typedef struct {
  **/
 
 m_vector new_vector(size_t num_args, ...);
+
 #define vector(...) new_vector(NUMARGS(f32, __VA_ARGS__), ##__VA_ARGS__)
 
 /**
@@ -43,6 +44,8 @@ m_vector vector_f(size_t dim, f32 *arr, f32 (*f)(f32));
  **/
 
 void print_v(m_vector vec);
+
+char* vector_str(m_vector v);
 
 /* vector functions */
 
