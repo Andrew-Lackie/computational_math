@@ -13,7 +13,7 @@ bool test_vector_n(size_t dim, f32 *arr, f32 *farr) {
 	bool status = true;
 	char buffer[1000];
 
-	m_vector vec = vector_n(dim, arr);
+	vec vec = vector_n(dim, arr);
 
 	for (size_t i = 0; i < dim; i++) {
 		if (vec.elements[i] != farr[i]) {
@@ -48,24 +48,24 @@ bool test_vector_n(size_t dim, f32 *arr, f32 *farr) {
 
 /*// Equality*/
 
-/*bool test_m_vector_equal(m_vector, m_vector, m_vector);*/
+/*bool test_vec_equal(vec, vec, vec);*/
 
 /*// Add*/
 
-/*bool test_m_vector_add(m_vector, m_vector, m_vector);*/
+/*bool test_vec_add(vec, vec, vec);*/
 
 /*// Subtract*/
 
-/*bool test_m_vector_sub(m_vector, m_vector, m_vector);*/
+/*bool test_vec_sub(vec, vec, vec);*/
 
 /*// Multi*/
 
-/*bool test_m_vector_multi(m_vector, m_vector, m_vector);*/
+/*bool test_vec_multi(vec, vec, vec);*/
 
 /*// Dot Product*/
 
-/*bool test_m_vector_dot(m_vector, m_vector, f32);*/
+/*bool test_vec_dot(vec, vec, f32);*/
 
 /*// Cross Product*/
 
-/*bool test_m_vector_x(m_vector, m_vector, m_vector);*/
+/*bool test_vec_x(vec, vec, vec);*/

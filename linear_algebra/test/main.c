@@ -1,16 +1,17 @@
-#include "test.h"
+/*#include "test.h"*/
+
+#include "vectors_test.h"
+#include "matrices_test.h"
 
 int main() {
 
 	initialize_memory();
 
-	f32 arr[3] = {1,2,3};
+	/*vectors();*/
 
-	test_vector_n(3, arr, arr);
+	matrices();
+
+	printf("%s", get_memory_usage_str());
 
 	return 0;
-}
-
-f32 double_el(f32 num) {
-		return num * 2.0;
 }

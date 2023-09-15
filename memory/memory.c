@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include <inttypes.h>
 #include "memory.h"
 #include "../assert/logger.h"
@@ -9,6 +9,7 @@
 static const char* memory_tag_strings[MEMORY_TAG_MAX_TAGS] = {
     "UNKNOWN    ",
     "ARRAY      ",
+    "VECTOR     ",
     "MATRIX     ",
     "LINEAR_ALLC",
     "STRING     ",
