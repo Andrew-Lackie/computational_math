@@ -16,7 +16,7 @@ mat new_matrix(size_t n, size_t m) {
         exit(1);
     }
 
-    mat mat = { .n = n, .m = m };
+    mat matrix = { .n = n, .m = m };
 
     void* block_v = m_allocate(n * sizeof(f32), MEMORY_TAG_MATRIX);
     f32** block_f = (f32**) block_v;
@@ -25,9 +25,9 @@ mat new_matrix(size_t n, size_t m) {
         block_f[i] = (f32*) m_allocate(m * sizeof(f32), MEMORY_TAG_MATRIX);
     }
 
-    mat.elements = block_f;
+    matrix.elements = block_f;
 
-    return mat;
+    return matrix;
 }
 
 mat mat_construct(size_t n, size_t m, f32 val) {
@@ -306,12 +306,17 @@ mat mat_multi(mat A, mat B) {
         exit(1);
     }
 
-    mat multi = new_matrix(A.n, A.m);
+    mat multi = new_matrix(A.n, B.m);
 
     for (size_t i = 0; i < A.n; i++) {
-        for (size_t j = 0; j < A.m; j++) {
-            multi.elements[i][j] = A.elements[i][j] * B.elements[j][i];
+        for (size_t j = 0; j < B.m; j++) {
+            multi.elements[i][j] = 0;
+
+            for (int k = 0; k < B.n; k++) {
+                multi.elements[i][j] += A.elements[i][k] * B.elements[k][j];
+            }
         }
+
     }
     return multi;
 }
@@ -328,4 +333,17 @@ void mat_multi_by(mat A, mat *B) {
             B->elements[i][j] = A.elements[i][j] * B->elements[j][i];
         }
     }
+}
+
+mat mat_copy(mat A) {
+
+    mat cpy = new_matrix(A.n, A.m);
+
+    for (size_t i = 0; i < A.n; i++) {
+        for (size_t j = 0; j < A.m; j++) {
+            cpy.elements[i][j] = A.elements[i][j];
+        }
+    }
+
+    return cpy;
 }

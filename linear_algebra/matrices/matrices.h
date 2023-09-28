@@ -77,4 +77,8 @@ void mat_multi_by(mat, mat*);
 
 void mat_transpose(mat*);
 
+// Transpose
+
+mat mat_copy(mat);
+
 #endif
