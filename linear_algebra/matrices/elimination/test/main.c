@@ -25,10 +25,10 @@ int main() {
 
     gaussj(&a_inv,&b_sol);
 
-    mat multi = mat_multi(a_inv, a, false);
+    /*mat multi = mat_multi(a_inv, a, true);*/
 
-    size_t row = 500;
-    size_t col = 500;
+    size_t row = 999;
+    size_t col = 999;
 
     mat matA = new_matrix(row, col);
     mat matB = new_matrix(row, col);
