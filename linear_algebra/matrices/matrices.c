@@ -18,14 +18,13 @@ mat new_matrix(size_t n, size_t m) {
 
     mat matrix = { .n = n, .m = m };
 
-    void* block_v = m_allocate(n * sizeof(f32), MEMORY_TAG_MATRIX);
-    f32** block_f = (f32**) block_v;
+    f32** block_v = m_allocate(n * sizeof(f32*), MEMORY_TAG_MATRIX);
 
     for (size_t i = 0; i < n; i++) {
-        block_f[i] = (f32*) m_allocate(m * sizeof(f32), MEMORY_TAG_MATRIX);
+        block_v[i] = m_allocate(m * sizeof(f32), MEMORY_TAG_MATRIX);
     }
 
-    matrix.elements = block_f;
+    matrix.elements = block_v;
 
     return matrix;
 }
@@ -293,44 +292,6 @@ void mat_sub_from(mat *A, mat B) {
     for (size_t i = 0; i < A->n; i++) {
         for (size_t j = 0; j < A->m; j++) {
             A->elements[i][j] = A->elements[i][j] - B.elements[i][j];
-        }
-    }
-}
-
-// Multi
-
-mat mat_multi(mat A, mat B) {
-
-    if (A.m != B.n) {
-	      LOG_ERROR("Action undefined on matrices of incompatible sizes (nxl and lxm): n: %f, l: %f and l: %f, m: %f", A.n, B.m, A.m, B.n);
-        exit(1);
-    }
-
-    mat multi = new_matrix(A.n, B.m);
-
-    for (size_t i = 0; i < A.n; i++) {
-        for (size_t j = 0; j < B.m; j++) {
-            multi.elements[i][j] = 0;
-
-            for (int k = 0; k < B.n; k++) {
-                multi.elements[i][j] += A.elements[i][k] * B.elements[k][j];
-            }
-        }
-
-    }
-    return multi;
-}
-
-void mat_multi_by(mat A, mat *B) {
-
-    if (A.m != B->n) {
-	      LOG_ERROR("Action undefined on matrices of incompatible sizes (nxl and lxm): n: %f, l: %f and l: %f, m: %f", A.n, B->m, A.m, B->n);
-        exit(1);
-    }
-
-    for (size_t i = 0; i < A.n; i++) {
-        for (size_t j = 0; j < A.m; j++) {
-            B->elements[i][j] = A.elements[i][j] * B->elements[j][i];
         }
     }
 }

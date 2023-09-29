@@ -2,8 +2,10 @@
 #define _MATRICES_H
 
 #include "../vectors/vectors.h"
-#include <stdio.h>
 #include "../../defines.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <pthread.h>
 
 /**
  * Vector struct
@@ -69,7 +71,7 @@ void mat_sub_from(mat*, mat);
 
 // Multi
 
-mat mat_multi(mat, mat);
+mat mat_multi(mat, mat, bool);
 
 void mat_multi_by(mat, mat*);
 
