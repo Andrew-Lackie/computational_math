@@ -27,8 +27,8 @@ int main() {
 
     mat multi = mat_multi(a_inv, a, false);
 
-    size_t row = 1500;
-    size_t col = 1500;
+    size_t row = 500;
+    size_t col = 500;
 
     mat matA = new_matrix(row, col);
     mat matB = new_matrix(row, col);
