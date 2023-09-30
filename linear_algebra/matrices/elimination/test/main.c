@@ -27,11 +27,12 @@ int main() {
 
     /*mat multi = mat_multi(a_inv, a, true);*/
 
-    size_t row = 999;
-    size_t col = 999;
+    size_t row = 1000;
+    size_t col = 1000;
 
     mat matA = new_matrix(row, col);
     mat matB = new_matrix(row, col);
+
 
     // MATRIX MULTIPLICATION TEST
 
@@ -41,20 +42,26 @@ int main() {
             matB.elements[i][j] = rand() % 10;
         }
     }
+    /*printm(matA);*/
+    /*printf("\n");*/
+    /*printm(matB);*/
+    /*printf("\n");*/
 
     // Multi threading
 
     clock_t t1;
     t1 = clock();
-    mat matC = mat_multi(matA, matB, true);
+    mat matC = mat_multi(matA, matB, true, true, 1000);
     t1 = clock() - t1;
+
+    /*printm(matC);*/
 
     double time_taken_mthread = ((double) t1) / CLOCKS_PER_SEC;
     printf("Took %f seconds to execute multi threaded multiplication \n", time_taken_mthread);
 
     clock_t t2;
     t2 = clock();
-    mat matD = mat_multi(matA, matB, false);
+    mat matD = mat_multi(matA, matB, false, false, 12);
     t2 = clock() - t2;
 
     double time_taken_normal = ((double) t2) / CLOCKS_PER_SEC;
