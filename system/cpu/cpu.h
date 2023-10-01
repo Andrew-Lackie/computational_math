@@ -31,4 +31,4 @@ typedef struct core_data {
 
 cpu_info core_count();
 
-	#endif
+#endif
