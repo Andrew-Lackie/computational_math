@@ -1,9 +1,4 @@
-#include <strings.h>
-#include <stdlib.h>
 #include "matrices.h"
-#include <stdarg.h>
-#include "matrices.h"
-#include "../../util.h"
 
 /* vector functions */
 

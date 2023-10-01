@@ -12,6 +12,7 @@ static const char* memory_tag_strings[MEMORY_TAG_MAX_TAGS] = {
     "VECTOR     ",
     "MATRIX     ",
     "LINEAR_ALLC",
+    "THREADS    ",
     "STRING     ",
     "HASHTABLE  "};
 

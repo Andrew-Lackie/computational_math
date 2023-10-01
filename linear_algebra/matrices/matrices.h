@@ -1,11 +1,15 @@
 #ifndef _MATRICES_H
 #define _MATRICES_H
 
+#include <strings.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include "../../threads/threads.h"
 #include "../vectors/vectors.h"
 #include "../../defines.h"
-#include "../../threads/threads.h"
-#include <stdio.h>
-#include <unistd.h>
+#include "../../util.h"
 
 /**
  * Vector struct
@@ -71,7 +75,7 @@ void mat_sub_from(mat*, mat);
 
 // Multi
 
-mat mat_multi(mat, mat, bool, bool, size_t);
+mat mat_multi(mat, mat, bool, size_t);
 
 void mat_multi_by(mat, mat*);
 

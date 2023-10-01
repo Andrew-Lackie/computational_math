@@ -27,18 +27,26 @@ int main() {
 
     /*mat multi = mat_multi(a_inv, a, true);*/
 
-    size_t row = 1000;
-    size_t col = 1000;
+    size_t rowA = 29;
+    size_t colA = 290;
 
-    mat matA = new_matrix(row, col);
-    mat matB = new_matrix(row, col);
+    size_t rowB = 290;
+    size_t colB = 43;
+
+    mat matA = new_matrix(rowA, colA);
+    mat matB = new_matrix(rowB, colB);
 
 
     // MATRIX MULTIPLICATION TEST
 
-    for (size_t i = 0; i < row; i++) {
-        for (size_t j = 0; j < col; j++) {
+    for (size_t i = 0; i < rowA; i++) {
+        for (size_t j = 0; j < colA; j++) {
             matA.elements[i][j] = rand() % 10;
+        }
+    }
+
+    for (size_t i = 0; i < rowB; i++) {
+        for (size_t j = 0; j < colB; j++) {
             matB.elements[i][j] = rand() % 10;
         }
     }
@@ -51,7 +59,7 @@ int main() {
 
     clock_t t1;
     t1 = clock();
-    mat matC = mat_multi(matA, matB, true, true, 1000);
+    mat matC = mat_multi(matA, matB, true, 12);
     t1 = clock() - t1;
 
     /*printm(matC);*/
@@ -61,8 +69,10 @@ int main() {
 
     clock_t t2;
     t2 = clock();
-    mat matD = mat_multi(matA, matB, false, false, 12);
+    mat matD = mat_multi(matA, matB, false, 3);
     t2 = clock() - t2;
+
+    /*printm(matD);*/
 
     double time_taken_normal = ((double) t2) / CLOCKS_PER_SEC;
     printf("Took %f seconds to execute single thread multiplication \n", time_taken_normal);
