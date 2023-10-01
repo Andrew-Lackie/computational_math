@@ -28,6 +28,9 @@ cpu_info core_count() {
 
     cpu_info info;
 
+    info.eax = eax;
+    info.ebx = ebx;
+    info.edx = edx;
     info.cores = sysconf(_SC_NPROCESSORS_ONLN);
 
 #endif
