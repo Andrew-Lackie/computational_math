@@ -27,11 +27,11 @@ int main() {
 
     /*mat multi = mat_multi(a_inv, a, true);*/
 
-    size_t rowA = 29;
-    size_t colA = 290;
+    size_t rowA = 1000;
+    size_t colA = 2500;
 
-    size_t rowB = 290;
-    size_t colB = 43;
+    size_t rowB = 2500;
+    size_t colB = 1300;
 
     mat matA = new_matrix(rowA, colA);
     mat matB = new_matrix(rowB, colB);
