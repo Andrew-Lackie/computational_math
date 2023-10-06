@@ -87,4 +87,11 @@ void mat_transpose(mat*);
 
 mat mat_copy(mat);
 
+// Matrix multiplication
+
+// Naive
+
+mat naive(mat, mat, bool, size_t);
+
+
 #endif

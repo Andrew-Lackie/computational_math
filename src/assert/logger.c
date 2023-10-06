@@ -6,7 +6,6 @@
 
 void log_output(log_level level, const char* message, ...) {
 	const char* level_string[6] = {"[FATAL]: ", "[ERROR]: ", "[WARN]: ", "[INFO]: ", "[DEBUG]: ", "[TRACE]: "};
-	bool is_error = level < 2;
 
 	char out_message_1[32000];
 	memset(out_message_1, 0, sizeof(out_message_1));

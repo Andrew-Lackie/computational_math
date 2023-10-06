@@ -6,11 +6,6 @@
 
 mat new_matrix(size_t n, size_t m) {
 
-    if (n < 0 || m < 0) {
-	      LOG_ERROR("Matrices are only defined on positive integer dimensions: rows %f and columns %f", n, m);
-        exit(1);
-    }
-
     mat matrix = { .n = n, .m = m };
 
     f32** block_v = m_allocate(n * sizeof(f32*), MEMORY_TAG_MATRIX);
@@ -59,12 +54,7 @@ mat mat_zero(size_t n, size_t m) {
 
 mat mat_identity(size_t n, size_t m) {
 
-    if (n < 0 || m < 0) {
-	      LOG_ERROR("Matrices are only defined on positive integer dimensions: rows %f and columns %f", n, m);
-        exit(1);
-    }
-
-    else if (n != m) {
+    if (n != m) {
 	      LOG_ERROR("Action undefined on non square matrices: rows %f and columns %f", n, m);
         exit(1);
     }
@@ -84,11 +74,6 @@ vec mat_get_col(size_t col, mat A) {
 
     col--;
 
-    if (col < 0 || col >= A.m) {
-	      LOG_ERROR("Column paramater must be between: 1 and %f", A.m + 1);
-        exit(1);
-    }
-
     vec v = new_vector(A.n);
 
     for (size_t i = 0; i < A.n; i++) {
@@ -103,11 +88,6 @@ vec mat_get_row(size_t row, mat A) {
 
     row--;
 
-    if (row < 0 || row >= A.n) {
-	      LOG_ERROR("Column paramater must be between: 1 and %f", A.n + 1);
-        exit(1);
-    }
-
     vec v = new_vector(A.m);
 
     for (size_t i = 0; i < A.m; i++) {
@@ -118,11 +98,6 @@ vec mat_get_row(size_t row, mat A) {
 }
 
 void printm(mat mat) {
-
-    if (mat.n < 0 || mat.m < 0) {
-        LOG_ERROR("Matrices are only defined on positive integer dimensions: rows %f and columns %f", mat.n, mat.m);
-        exit(1);
-    }
 
     for (size_t i = 0; i < mat.n; i++) {
         for (size_t j = 0; j < mat.m; j++) {

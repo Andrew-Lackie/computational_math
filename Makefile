@@ -33,7 +33,7 @@ library:
 	ar -r $(LIB) $(OBJECTS)
 
 clean:
-	rm -rf $(BINARY) $(OBJECTS) $(DEPFILES) $(LIB)
+	rm -rf $(BINARY) $(OBJECTS) $(DEPFILES)
 
 # shell commands are a set of keystrokes away
 distribute: clean
