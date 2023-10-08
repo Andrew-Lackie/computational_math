@@ -18,15 +18,15 @@
 /* Constants */
 
 // pi ratios defined
-#define M_PI 3.1415926535897f
-#define M_2PI (2.0f * T_PI)
+//
+#define M_2PI (2.0f * M_PI)
 
-#define M_HALF_PI (T_PI / 2.0f)
-#define M_THIRD_PI (T_PI / 3.0f)
-#define M_QUARTER_PI (T_PI / 4.0f)
-#define M_SIXTH_PI (T_PI / 6.0f)
+#define M_HALF_PI (M_PI / 2.0f)
+#define M_THIRD_PI (M_PI / 3.0f)
+#define M_QUARTER_PI (M_PI / 4.0f)
+#define M_SIXTH_PI (M_PI / 6.0f)
 
-#define M_ONE_OVER_PI (1.0f / T_PI)
+#define M_ONE_OVER_PI (1.0f / M_PI)
 #define M_ONE_OVER_2PI (1.0f / T_2PI)
 
 // roots defined
@@ -43,10 +43,10 @@
 #define M_EULER_CONST 0.5772156649015
 
 // convert degrees to radians
-#define M_DEG2RAD_MULTI (T_PI / 180.0f)
+#define M_DEG2RAD_MULTI (M_PI / 180.0f)
 
 // convert radians to degrees
-#define M_RAD2DEG_MULTI (180.f / T_PI)
+#define M_RAD2DEG_MULTI (180.f / M_PI)
 
 // infinity defined
 #define M_INFINITY (1e30f * 1e30f)

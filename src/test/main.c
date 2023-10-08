@@ -3,6 +3,7 @@
 #include "vectors.h"
 #include "matrices.h"
 #include "gaussj.h"
+#include "lu.h"
 #include "memory.h"
 #include "logger.h"
 #include "asserts.h"
@@ -30,7 +31,23 @@ int main() {
     mat a_inv = mat_copy(a);
     mat b_sol = mat_copy(b);
 
-    gaussj(&a_inv,&b_sol);
+    mat lu = mat_copy(a);
+
+    gaussj_dcmp(&a_inv,&b_sol);
+
+    /*printm(b_sol);*/
+
+    f32 d;
+    vec indx = vec_zero_construct(lu.n);
+
+    vec zero_sol = vec_zero_construct(lu.n);
+
+    lu_dcmp(&lu, &indx, &d);
+    lubskb(&lu, &indx, zero_sol);
+
+    printv(indx);
+    printm(lu);
+    printf("d: %f\n", d);
 
     /*mat multi = mat_multi(a_inv, a, true);*/
 

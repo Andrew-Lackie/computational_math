@@ -1,6 +1,6 @@
 #include "gaussj.h"
 
-void gaussj(mat *a, mat *b) {
+void gaussj_dcmp(mat *a, mat *b) {
     vec indxc, indxr, ipiv;
     size_t i, icol, irow, j, k, l, ll;
     f32 big, dum, pivinv, temp;

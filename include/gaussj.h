@@ -6,6 +6,6 @@
 
 #define SWAP(a,b) {temp = (a);(a) = (b);(b) = temp;}
 
-void gaussj(mat *a, mat *b);
+void gaussj_dcmp(mat *a, mat *b);
 
 #endif
