@@ -19,6 +19,12 @@ mat new_matrix(size_t n, size_t m) {
     return matrix;
 }
 
+void free_matrix(mat* A) {
+    size_t size = (A->n * sizeof(f32) + (A->m * sizeof(f32)));
+    void* block = (void*) A->elements;
+    m_free(block, size, MEMORY_TAG_MATRIX);
+}
+
 mat mat_construct(size_t n, size_t m, f32 val) {
 
     mat a = new_matrix(n, m);
