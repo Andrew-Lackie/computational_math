@@ -21,6 +21,26 @@ typedef struct {
     f32 **elements;
 } mat;
 
+enum multi_t {
+    MATxMAT = 0,
+    MATxVEC = 1
+};
+
+struct data {
+    mat A;
+    union {
+        vec x;
+        mat B;
+    };
+    union {
+        vec b;
+        mat C;
+    };
+    enum multi_t type;
+};
+
+
+
 /**
  * Function to create a new nxm matrix
  **/
@@ -75,7 +95,9 @@ void mat_sub_from(mat*, mat);
 
 // Multi
 
-mat mat_multi(mat, mat, bool, size_t);
+mat mm_multi(mat, mat, bool, size_t);
+
+vec mv_multi(mat, vec, bool, size_t);
 
 void mat_multi_by(mat, mat*);
 
@@ -91,7 +113,7 @@ mat mat_copy(mat);
 
 // Naive
 
-mat naive(mat, mat, bool, size_t);
+void* naive(mat, void*, enum multi_t, bool, size_t);
 
 
 #endif

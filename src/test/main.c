@@ -1,6 +1,6 @@
 #include "const.h"
 #include "defines.h"
-#include "vectors.h"
+#include <vectors.h>
 #include "matrices.h"
 #include "gaussj.h"
 #include "lu.h"
@@ -13,6 +13,8 @@ int main() {
 
 		mat a = mat_zero(3,3);
     mat b = mat_zero(3,3);
+
+    vec x = vec_default_construct(3, 3.0);
 
     a.elements[0][0] = 1.0f;
     a.elements[0][1] = -3.0f;
@@ -49,7 +51,7 @@ int main() {
     printm(lu);
     printf("d: %f\n", d);
 
-    /*mat multi = mat_multi(a_inv, a, true);*/
+    /*mat multi = mm_multi(a_inv, a, true);*/
 
     size_t rowA = 1000;
     size_t colA = 2500;
@@ -80,11 +82,18 @@ int main() {
     /*printm(matB);*/
     /*printf("\n");*/
 
+    printm(a);
+    printv(x);
+
+    vec vecC = mv_multi(a, x, true, 3);
+
+    printv(vecC);
+
     // Multi threading
 
     clock_t t1;
     t1 = clock();
-    mat matC = mat_multi(matA, matB, true, 12);
+    mat matC = mm_multi(matA, matB, true, 12);
     t1 = clock() - t1;
 
     /*printm(matC);*/
@@ -94,7 +103,7 @@ int main() {
 
     clock_t t2;
     t2 = clock();
-    mat matD = mat_multi(matA, matB, false, 3);
+    mat matD = mm_multi(matA, matB, false, 3);
     t2 = clock() - t2;
 
     /*printm(matD);*/
