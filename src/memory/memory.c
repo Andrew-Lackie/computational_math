@@ -39,7 +39,7 @@ void* m_allocate(size_t size, memory_tag tag) {
         LOG_WARN("m_allocate called using MEMORY_TAG_UNKNOWN. Re-class this allocation");
     }
     if (size == 0) {
-        LOG_WARN("m_allocate_aligned size parameter is 0. Returning NULL");
+        LOG_WARN("m_allocate size parameter is 0. Returning NULL");
         return NULL;
     }
     stats.total_allocated += size;
@@ -49,6 +49,34 @@ void* m_allocate(size_t size, memory_tag tag) {
     memset(block, 0, size);
 
     return block;
+}
+
+void* m_reallocate(void* block, size_t size, memory_tag tag) {
+
+    void* new_block;
+
+    if (tag == MEMORY_TAG_UNKNOWN) {
+        LOG_WARN("m_rallocate called using MEMORY_TAG_UNKNOWN. Re-class this allocation");
+    }
+    if (size == 0) {
+        LOG_WARN("m_rallocate size parameter is 0. Returning NULL");
+        return NULL;
+    }
+
+    if (block == NULL) {
+        LOG_WARN("Memory size is NULL. Creating new allocation.");
+        new_block = m_allocate(size, tag);
+    }
+    else {
+        stats.total_allocated -= sizeof(block);
+        stats.total_allocated += size;
+        stats.tagged_allocations[tag] -= sizeof(block);
+        stats.tagged_allocations[tag] += size;
+
+        new_block = realloc(block, size);
+        memset(new_block, 0, size);
+    }
+    return new_block;
 }
 
 void* m_allocate_aligned(size_t size, memory_tag tag, size_t alignment) {

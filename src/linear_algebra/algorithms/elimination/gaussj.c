@@ -1,7 +1,7 @@
 #include "gaussj.h"
 
-void gaussj_dcmp(mat *a, mat *b) {
-    vec indxc, indxr, ipiv;
+void gaussj_dcmp(matrix *a, matrix *b) {
+    vector indxc, indxr, ipiv;
     size_t i, icol, irow, j, k, l, ll;
     f32 big, dum, pivinv, temp;
 
@@ -9,11 +9,11 @@ void gaussj_dcmp(mat *a, mat *b) {
     size_t m = a->m;
 
     /*The integer arrays ipiv, indxr, and indxc are*/
-    indxc = vec_zero_construct(n);
-    indxr = vec_zero_construct(n);
+    indxc = fvector_zero_construct(n);
+    indxr = fvector_zero_construct(n);
 
     /*used for bookkeeping on the pivoting.*/
-    ipiv = vec_zero_construct(n);
+    ipiv = fvector_zero_construct(n);
 
     for (i = 0; i < n; i++) {
         /*This is the main loop over the columns to be*/
@@ -21,23 +21,23 @@ void gaussj_dcmp(mat *a, mat *b) {
         /*reduced.*/
         for (j = 0; j < n; j++) {
         /*This is the outer loop of the search for a pivot*/
-            if (ipiv.elements[j] != 1) {
+            if (*(i32*)ipiv.vector_list.elements[j] != 1) {
             /*element.*/
                 for (k = 0; k < n; k++) {
-                    if (ipiv.elements[k] == 0) {
+                    if (*(i32*)ipiv.vector_list.elements[k] == 0) {
                         if (fabs(a->elements[j][k]) >= big) {
                             big = fabs(a->elements[j][k]);
                             irow = j;
                             icol = k;
                         }
                     }
-                    else if (ipiv.elements[k] > 1) {
+                    else if (*(f32*)ipiv.vector_list.elements[k] > 1) {
 	                      LOG_ERROR("gaussj: Singular Matrix-1");
                     }
                 }
             }
         }
-        ++(ipiv.elements[icol]);
+        ++(*(i32*)ipiv.vector_list.elements[icol]);
 
         /*if (irow != icol) {*/
             /*for (l = 0; l < n; l++) {*/
@@ -48,12 +48,11 @@ void gaussj_dcmp(mat *a, mat *b) {
             /*}*/
         /*}*/
 
-        indxr.elements[i] = irow;
+        indxr.vector_list.elements[i] = (void*)&irow;
 
         /*We are now ready to divide the pivot row by the*/
-        indxc.elements[i] = icol;
-
-        /*pivot element, located at irow and icol.*/
+        indxc.vector_list.elements[i] = (void*)&icol;
+/*pivot element, located at irow and icol.*/
         if (a->elements[icol][icol]  ==  0.0)
             LOG_ERROR("gaussj: Singular Matrix-1");
 
@@ -82,14 +81,14 @@ void gaussj_dcmp(mat *a, mat *b) {
     }
 
     for (l = n; l > 0; l--) {
-        if (indxr.elements[l] != indxc.elements[l]) {
+        if (indxr.vector_list.elements[l] != indxc.vector_list.elements[l]) {
             for (k = 0; k < n; k++) {
-                SWAP(a->elements[k][(int) indxr.elements[l]],a->elements[k][(int) indxc.elements[l]]);
+                SWAP(a->elements[k][*(i32*) indxr.vector_list.elements[l]], a->elements[k][*(i32*) indxc.vector_list.elements[l]]);
             }
         }
     }
 
-    free_vector(&ipiv);
-    free_vector(&indxr);
-    free_vector(&indxc);
+    vector_free(&ipiv);
+    vector_free(&indxr);
+    vector_free(&indxc);
 }

@@ -1,6 +1,7 @@
 #include "const.h"
 #include "defines.h"
 #include <vectors.h>
+#include <fvectors.h>
 #include "matrices.h"
 #include "gaussj.h"
 #include "lu.h"
@@ -11,10 +12,12 @@
 
 int main() {
 
-		mat a = mat_zero(3,3);
-    mat b = mat_zero(3,3);
+    printf("HELOLO");
 
-    vec x = vec_default_construct(3, 3.0);
+		matrix a = matrix_zero(3,3);
+    matrix b = matrix_zero(3,3);
+
+    vector x = fvector_default_construct(3, 3.0);
 
     a.elements[0][0] = 1.0f;
     a.elements[0][1] = -3.0f;
@@ -30,19 +33,19 @@ int main() {
     b.elements[1][0] = 6.0f;
     b.elements[2][0] = 6.0f;
 
-    mat a_inv = mat_copy(a);
-    mat b_sol = mat_copy(b);
+    matrix a_inv = matrix_copy(a);
+    matrix b_sol = matrix_copy(b);
 
-    mat lu = mat_copy(a);
+    matrix lu = matrix_copy(a);
 
     gaussj_dcmp(&a_inv,&b_sol);
 
     /*printm(b_sol);*/
 
     f32 d;
-    vec indx = vec_zero_construct(lu.n);
+    vector indx = fvector_zero_construct(lu.n);
 
-    vec zero_sol = vec_zero_construct(lu.n);
+    vector zero_sol = fvector_zero_construct(lu.n);
 
     lu_dcmp(&lu, &indx, &d);
     lubskb(&lu, &indx, zero_sol);
@@ -59,8 +62,8 @@ int main() {
     size_t rowB = 2500;
     size_t colB = 1300;
 
-    mat matA = new_matrix(rowA, colA);
-    mat matB = new_matrix(rowB, colB);
+    matrix matA = new_matrix(rowA, colA);
+    matrix matB = new_matrix(rowB, colB);
 
 
     // MATRIX MULTIPLICATION TEST
@@ -85,7 +88,7 @@ int main() {
     printm(a);
     printv(x);
 
-    vec vecC = mv_multi(a, x, true, 3);
+    vector vecC = mv_multi(a, x, true, 3);
 
     printv(vecC);
 
@@ -93,7 +96,7 @@ int main() {
 
     clock_t t1;
     t1 = clock();
-    mat matC = mm_multi(matA, matB, true, 12);
+    matrix matC = mm_multi(matA, matB, true, 12);
     t1 = clock() - t1;
 
     /*printm(matC);*/
@@ -103,7 +106,7 @@ int main() {
 
     clock_t t2;
     t2 = clock();
-    mat matD = mm_multi(matA, matB, false, 3);
+    matrix matD = mm_multi(matA, matB, false, 3);
     t2 = clock() - t2;
 
     /*printm(matD);*/

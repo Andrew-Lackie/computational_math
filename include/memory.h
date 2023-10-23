@@ -39,6 +39,8 @@ void initialize_memory();
 
 void* m_allocate(size_t size, memory_tag tag);
 
+void* m_reallocate(void*, size_t size, memory_tag tag);
+
 void* m_allocate_aligned(size_t size, memory_tag tag, size_t alignment);
 
 /**

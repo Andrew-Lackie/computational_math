@@ -7,7 +7,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "threads.h"
-#include "vectors.h"
+#include "fvectors.h"
 #include "defines.h"
 #include "util.h"
 
@@ -19,7 +19,7 @@ typedef struct {
     size_t n;
     size_t m;
     f32 **elements;
-} mat;
+} matrix;
 
 enum multi_t {
     MATxMAT = 0,
@@ -27,93 +27,91 @@ enum multi_t {
 };
 
 struct data {
-    mat A;
+    matrix A;
     union {
-        vec x;
-        mat B;
+        vector x;
+        matrix B;
     };
     union {
-        vec b;
-        mat C;
+        vector b;
+        matrix C;
     };
     enum multi_t type;
 };
 
-
-
 /**
- * Function to create a new nxm matrix
+ * Function to create a new nxm matrixrix
  **/
 
-mat new_matrix(size_t n, size_t m);
+matrix new_matrix(size_t n, size_t m);
 
 /**
- * Function to create a new nxm matrix mapped by function f
+ * Function to create a new nxm matrixrix mapped by function f
  **/
 
-mat new_matrix(size_t n, size_t m);
+matrix new_matrix(size_t n, size_t m);
 
-mat mat_construct(size_t n, size_t m, f32 val);
+matrix matrix_construct(size_t n, size_t m, f32 val);
 
-mat mat_array_construct(size_t n, size_t m, f32 *arr[]);
+matrix matrix_array_construct(size_t n, size_t m, f32 *arr[]);
 
-mat mat_zero(size_t n, size_t m);
+matrix matrix_zero(size_t n, size_t m);
 
-mat mat_identity(size_t n, size_t m);
+matrix matrix_identity(size_t n, size_t m);
 
-mat mat_fn(size_t n, size_t m, f32 **arr, f32(*f)(f32));
+matrix matrix_fn(size_t n, size_t m, f32 **arr, f32(*f)(f32));
 
-vec mat_get_col(size_t col, mat A);
+vector matrix_get_col(size_t col, matrix A);
 
-vec mat_get_row(size_t row, mat A);
+vector matrix_get_row(size_t row, matrix A);
 
-bool mat_is_product(mat A, mat B, mat C, u32 k);
+bool matrix_is_product(matrix A, matrix B, matrix C, u32 k);
 
 /**
  * Function and macro to create a new complex vector
  **/
 
-void printm(mat);
+void printm(matrix);
 
 /* vector functions */
 
 // Equality
 
-bool mat_equal(mat, mat);
+bool matrix_equal(matrix, matrix);
 
 // Add
 
-mat mat_add(mat, mat);
+matrix matrix_add(matrix, matrix);
 
-void mat_add_to(mat*, mat);
+void matrix_add_to(matrix*, matrix);
 
 // Subtract
 
-mat mat_sub(mat, mat);
+matrix matrix_sub(matrix, matrix);
 
-void mat_sub_from(mat*, mat);
+void matrix_sub_from(matrix*, matrix);
 
 // Multi
 
-mat mm_multi(mat, mat, bool, size_t);
+matrix mm_multi(matrix, matrix, bool, size_t);
 
-vec mv_multi(mat, vec, bool, size_t);
+vector mv_multi(matrix, vector, bool, size_t);
 
-void mat_multi_by(mat, mat*);
-
-// Transpose
-
-void mat_transpose(mat*);
+void matrix_multi_by(matrix, matrix*);
 
 // Transpose
 
-mat mat_copy(mat);
+void matrix_transpose(matrix*);
 
-// Matrix multiplication
+// Transpose
+
+matrix matrix_copy(matrix);
+
+// matrixrix multiplication
 
 // Naive
 
-void* naive(mat, void*, enum multi_t, bool, size_t);
+void* naive(matrix, void*, enum multi_t, bool, size_t);
 
 
 #endif

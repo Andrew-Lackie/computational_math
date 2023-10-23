@@ -3,84 +3,61 @@
 
 #include "defines.h"
 #include "memory.h"
+#include "logger.h"
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include <string.h>
-#include <math.h>
-#include <complex.h>
 
-#define ARRAY_SIZE(a) ( (sizeof(a)) / sizeof((a.elements[0])) )
+#define VECTOR_INIT(vec, capacity) vector vec; vector_init(&vec, capacity)
+#define VECTOR_ADD(vec, item) vector_push_back(&vec, (void *) item)
+#define VECTOR_SET(vec, id, item) vector_set(&vec, id, (void *) item)
+#define VECTOR_GET(vec, type, id) (type) vector_get(&vec, id)
+#define VECTOR_DELETE(vec, id) vector_delete(&vec, id)
+#define VECTOR_TOTAL(vec) vector_total(&vec)
+#define VECTOR_FREE(vec) vector_free(&vec)
 
-/**
- * Vector struct
- **/
-typedef struct {
-    f32 *elements;
-    size_t n;
-} vec;
+#define VECTOR_INIT_CAPACITY 6
+#define UNDEFINED  -1
+#define SUCCESS 0
 
-/**
- * Create new vector
- **/
-vec new_vector(size_t dim);
+typedef struct vec_list
+{
+    void **elements;
+    i32 capacity;
+    i32 total;
+} vec_list;
 
-/**
- * Free vector
- **/
-void free_vector(vec* A);
+//structure contain the function poi32er
+typedef struct vec vector;
 
-/**
- * Vector constructors
- **/
-vec vec_va_list_construct(size_t num_args, ...);
-#define vector(...) vec_va_list_construct(NUMARGS(f32, __VA_ARGS__), ##__VA_ARGS__)
+struct vec
+{
+    vec_list vector_list;
+    //function pointers
+    i32 (*pf_vector_total)(vector *);
+    i32 (*pf_vector_resize)(vector *, i32);
+    i32 (*pf_vector_add)(vector *, void *);
+    i32 (*pf_vector_set)(vector *, i32, void *);
+    void *(*pf_vector_get)(vector *, i32);
+    i32 (*pf_vector_delete)(vector *, i32);
+    i32 (*pf_vector_free)(vector *);
+};
 
-vec vec_default_construct(size_t dim, f32 val);
-vec vec_zero_construct(size_t dim);
-vec vec_array_construct(size_t dim, f32 arr[]);
+i32 vector_total(vector *v);
 
-/**
- * vector string conversion and printing
- **/
-void printv(vec v);
-char* vec_to_str(vec v);
+i32 vector_resize(vector *v, i32 capacity);
 
-/**
- * Copy a vector
- **/
-vec vec_copy(vec v);
-vec vec_copy_ptr(vec *v);
+i32 vector_push_back(vector *v, void *item);
 
-/**
- * Vector operations
- **/
+i32 vector_set(vector *v, i32 index, void *item);
 
-void vec_fn(vec *v, f32 (*f)(f32));
+void *vector_get(vector *v, i32 index);
 
-bool vec_equal(vec, vec);
+i32 vector_delete(vector *v, i32 index);
 
-vec vec_add(vec, vec);
-void vec_add_to(vec*, vec);
+i32 vector_free(vector *v);
 
-vec vec_subtract(vec, vec);
-void vec_subtract_from(vec*, vec);
-
-void vec_scalar_multiply(vec*, f32);
-
-void vec_scalar_divide(vec*, f32);
-
-vec vec_multiply(vec, vec);
-void vec_multiply_by(vec*, vec);
-
-u32 vec_dot(vec, vec);
-vec vec_cross(vec, vec);
-
-bool vec_orthogonal(vec, vec);
-
-f32 vec_magnitude_squared(vec v);
-f32 vec_magnitude(vec v);
-
-void vec_normalize(vec *v);
+void vector_init(vector *v, size_t capacity);
 
 #endif

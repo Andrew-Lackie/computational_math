@@ -11,13 +11,13 @@ static void* thread(void* arg) {
     data->task += rows_per_thread;
 
     struct data* payload = data->data;
-    mat A = payload->A;
+    matrix A = payload->A;
 
     if (payload->type == MATxMAT) {
 
 
-        mat B = payload->B;
-        mat C = payload->C;
+        matrix B = payload->B;
+        matrix C = payload->C;
 
         for (size_t i = curr_row; i < curr_row + rows_per_thread; i++) {
             for (size_t j = 0; j < B.m; j++) {
@@ -31,13 +31,15 @@ static void* thread(void* arg) {
     }
     else if (payload->type == MATxVEC) {
 
-        vec x = payload->x;
-        vec b = payload->b;
+        vector x = payload->x;
+        vector b = payload->b;
 
+        f32 elements;
 
         for (size_t i = curr_row; i < curr_row + rows_per_thread; i++) {
             for (size_t j = 0; j < A.m; j++) {
-               b.elements[i] += A.elements[i][j] * x.elements[j];
+                elements += A.elements[i][j] * *(f32*)x.vector_list.elements[j];
+                b.vector_list.elements[i] = (void*)&elements;
             }
         }
 
@@ -49,13 +51,13 @@ static void* thread(void* arg) {
     return NULL;
 }
 
-void* naive(mat A, void* arg, enum multi_t type, bool mthread, size_t total_threads) {
+void* naive(matrix A, void* arg, enum multi_t type, bool mthread, size_t total_threads) {
 
     void* ret;
 
     if (type == MATxMAT) {
-        mat* B = (mat*) arg;
-        mat C = new_matrix(A.n, B->m);
+        matrix* B = (matrix*) arg;
+        matrix C = new_matrix(A.n, B->m);
 
         if (!mthread) {
 
@@ -84,13 +86,16 @@ void* naive(mat A, void* arg, enum multi_t type, bool mthread, size_t total_thre
         return ret;
     }
     else if (type == MATxVEC) {
-        vec* x = (vec*) arg;
-        vec b = new_vector(x->n);
+        vector* x = (vector*) arg;
+        VECTOR_INIT(b, VECTOR_TOTAL(*x));
+
+        f32 elements;
 
         if (!mthread) {
-            for (size_t i = 0; i < x->n; i++) {
-                for (size_t j = 0; j < x->n; j++) {
-                    b.elements[i] += A.elements[i][j] * x->elements[j];
+            for (i32 i = 0; i < VECTOR_TOTAL(*x); i++) {
+                for (i32 j = 0; j < VECTOR_TOTAL(*x); j++) {
+                    elements += A.elements[i][j] * *(f32*)x->vector_list.elements[j];
+                    b.vector_list.elements[i] = (void*)&elements;
                 }
             }
             ret = (void*)&b;
@@ -103,7 +108,7 @@ void* naive(mat A, void* arg, enum multi_t type, bool mthread, size_t total_thre
             payload->b = b;
             payload->type = MATxVEC;
 
-            thread_manager((void*) payload, thread, NULL, x->n, total_threads);
+            thread_manager((void*) payload, thread, NULL, VECTOR_TOTAL(*x), total_threads);
 
             ret = (void*)&b;
         }

@@ -2,12 +2,12 @@
 #define _LU_H
 
 #include <math.h>
-#include "vectors.h"
+#include "fvectors.h"
 #include "matrices.h"
 #include "const.h"
 
-void lu_dcmp(mat*, vec*, f32*);
+void lu_dcmp(matrix*, vector*, f32*);
 
-void lubskb(mat*, vec*, vec);
+void lubskb(matrix*, vector*, vector);
 
 #endif
