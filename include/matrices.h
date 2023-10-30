@@ -6,9 +6,9 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include "threads.h"
+#include <threads.h>
 #include "fvectors.h"
-#include "defines.h"
+#include <defines.h>
 #include "util.h"
 
 /**

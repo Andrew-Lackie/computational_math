@@ -1,4 +1,4 @@
-#include "lu.h"
+#include <lu.h>
 
 void lu_dcmp(matrix *A, vector *indx, f32 *d) {
 

@@ -1,4 +1,4 @@
-#include "gaussj.h"
+#include <gaussj.h>
 
 void gaussj_dcmp(matrix *a, matrix *b) {
     vector indxc, indxr, ipiv;

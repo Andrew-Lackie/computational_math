@@ -1,9 +1,9 @@
 #ifndef _FVECTORS_H
 #define _FVECTORS_H
 
-#include "defines.h"
-#include "memory.h"
-#include "vectors.h"
+#include <defines.h>
+#include <memory.h>
+#include <vectors.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
