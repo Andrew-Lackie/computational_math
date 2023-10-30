@@ -4,11 +4,11 @@
 #include "vectors.h"
 
 struct triangle {
-	vec p[3];
+	vector p[3];
 };
 
 struct mesh {
-	triangle *tris;
+	vector *tris;
 };
 
 #endif

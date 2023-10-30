@@ -12,12 +12,24 @@
 
 int main() {
 
-    printf("HELOLO");
-
 		matrix a = matrix_zero(3,3);
     matrix b = matrix_zero(3,3);
 
     vector x = fvector_default_construct(3, 3.0);
+
+    VECTOR_INIT(vec, 5);
+
+    VECTOR_ADD(vec, &a);
+    matrix val1 = VECTOR_GET(vec, matrix, 0);
+    printm(val1);
+
+    VECTOR_ADD(vec, &b);
+    matrix val2 = VECTOR_GET(vec, matrix, 1);
+    printm(val2);
+
+    i32 total = VECTOR_TOTAL(vec);
+    printf("%i", total);
+
 
     a.elements[0][0] = 1.0f;
     a.elements[0][1] = -3.0f;

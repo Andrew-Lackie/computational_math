@@ -14,7 +14,7 @@ matrix mm_multi(matrix A, matrix B, bool mthread, size_t params) {
 
 vector mv_multi(matrix A, vector x, bool mthread, size_t params) {
 
-    if (A.m != VECTOR_TOTAL(x)) {
+    if ((i32)A.m != VECTOR_TOTAL(x)) {
 	      LOG_ERROR("Incompatible sizes; matrix size: %dx%d, vector size: %d", A.n, A.m, VECTOR_TOTAL(x));
         exit(1);
     }

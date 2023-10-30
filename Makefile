@@ -1,17 +1,18 @@
 BINARY=./bin/bin
 ROOT=./src
+LIBDIR=./lib
 LIB=./lib/libmath.a
 CODEDIRS=$(shell find $(ROOT) -type d)
-INCDIRS=. ./include
+INCDIRS=./include
 
 CC=gcc
 OPT=-O0
 # generate files that encode make rules for the .h dependencies
-DEPFLAGS=-lm
+DEPFLAGS=-lm -lbase
 # automatically add the -I onto each include directory
 CFLAGS=-Wall -Wextra -g $(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEPFLAGS)
 
-LINKFLAGS= $(foreach D,$(INCDIRS),-L$(D)) $(DEPFLAGS)
+LINKFLAGS= $(foreach D,$(INCDIRS), -L$(D)) $(DEPFLAGS)
 
 # for-style iteration (foreach) and regular expression completions (wildcard)
 CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.c))
@@ -22,10 +23,11 @@ DEPFILES=$(patsubst %.c,%.d,$(CFILES))
 all: $(BINARY)
 
 $(BINARY): $(OBJECTS)
+	mkdir -p bin
 	$(CC) -o $@ $^ $(LINKFLAGS)
 
 # only want the .c file dependency here, thus $< instead of $^.
-#
+
 %.o:%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
