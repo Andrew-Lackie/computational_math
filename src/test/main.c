@@ -19,17 +19,16 @@ int main() {
 
     VECTOR_INIT(vec, 5);
 
-    VECTOR_ADD(vec, &a);
+    VECTOR_ADD(vec, matrix, &a);
     matrix val1 = VECTOR_GET(vec, matrix, 0);
     printm(val1);
 
-    VECTOR_ADD(vec, &b);
+    VECTOR_ADD(vec, matrix, &b);
     matrix val2 = VECTOR_GET(vec, matrix, 1);
     printm(val2);
 
     i32 total = VECTOR_TOTAL(vec);
     printf("%i", total);
-
 
     a.elements[0][0] = 1.0f;
     a.elements[0][1] = -3.0f;
@@ -62,7 +61,7 @@ int main() {
     lu_dcmp(&lu, &indx, &d);
     lubskb(&lu, &indx, zero_sol);
 
-    printv(indx);
+    printfv(indx);
     printm(lu);
     printf("d: %f\n", d);
 
@@ -98,11 +97,11 @@ int main() {
     /*printf("\n");*/
 
     printm(a);
-    printv(x);
+    printfv(x);
 
     vector vecC = mv_multi(a, x, true, 3);
 
-    printv(vecC);
+    printfv(vecC);
 
     // Multi threading
 

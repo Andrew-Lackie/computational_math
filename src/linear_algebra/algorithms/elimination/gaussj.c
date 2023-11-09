@@ -13,7 +13,7 @@ void gaussj_dcmp(matrix *a, matrix *b) {
     indxr = fvector_zero_construct(n);
 
     /*used for bookkeeping on the pivoting.*/
-    ipiv = fvector_zero_construct(n);
+    ipiv = ivector_zero_construct(n);
 
     for (i = 0; i < n; i++) {
         /*This is the main loop over the columns to be*/
@@ -21,7 +21,7 @@ void gaussj_dcmp(matrix *a, matrix *b) {
         /*reduced.*/
         for (j = 0; j < n; j++) {
         /*This is the outer loop of the search for a pivot*/
-            if (*(i32*)ipiv.vector_list.elements[j] != 1) {
+            if (VECTOR_GET(ipiv, i32, i) != 1) {
             /*element.*/
                 for (k = 0; k < n; k++) {
                     if (*(i32*)ipiv.vector_list.elements[k] == 0) {

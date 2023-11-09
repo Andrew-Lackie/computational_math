@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <threads.h>
 #include "fvectors.h"
+#include "ivectors.h"
 #include <defines.h>
 #include "util.h"
 

@@ -4,6 +4,7 @@
 #include <defines.h>
 #include <memory.h>
 #include <vectors.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -34,9 +35,9 @@ vector fvector_zero_construct(size_t dim);
 vector fvector_array_construct(size_t dim, f32 arr[]);
 
 /**
- * fvectortor string conversion and printing
+ * fvector string conversion and printing
  **/
-void printv(vector v);
+void printfv(vector v);
 char* fvector_to_str(vector v);
 
 /**
