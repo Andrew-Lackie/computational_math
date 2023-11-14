@@ -4,7 +4,8 @@
 
 // New fvector
 
-vector fvector_va_list_construct(size_t dim, ...) {
+vector fvector_va_list_construct(size_t dim, ...)
+{
 
     VECTOR_INIT(v, dim);
 
@@ -23,7 +24,8 @@ vector fvector_va_list_construct(size_t dim, ...) {
     return v;
 }
 
-vector fvector_default_construct(size_t dim, f32 val) {
+vector fvector_default_construct(size_t dim, f32 val)
+{
 
     VECTOR_INIT(v, dim);
 
@@ -37,14 +39,16 @@ vector fvector_default_construct(size_t dim, f32 val) {
     return v;
 }
 
-vector fvector_zero_construct(size_t dim) {
+vector fvector_zero_construct(size_t dim)
+{
 
     vector v = fvector_default_construct(dim, 0.0f);
 
     return v;
 }
 
-vector fvector_array_construct(size_t dim, f32 arr[]) {
+vector fvector_array_construct(size_t dim, f32 arr[])
+{
 
     VECTOR_INIT(v, dim);
 
@@ -58,7 +62,8 @@ vector fvector_array_construct(size_t dim, f32 arr[]) {
     return v;
 }
 
-void printfv(vector v) {
+void printfv(vector v)
+{
     printf("[ ");
 
     for (f32 i = 0; i < VECTOR_TOTAL(v); i++) {
@@ -74,7 +79,8 @@ void printfv(vector v) {
     printf("]\n");
 }
 
-char* fvector_to_str(vector v) {
+char* fvector_to_str(vector v)
+{
     size_t length = VECTOR_TOTAL(v) * (VECTOR_TOTAL(v) - 1) + 2;
 
     char* str = malloc(VECTOR_TOTAL(v) * (VECTOR_TOTAL(v) - 1) + 2);
@@ -90,7 +96,8 @@ char* fvector_to_str(vector v) {
     return str;
 }
 
-vector fvector_copy(vector v) {
+vector fvector_copy(vector v)
+{
 
     VECTOR_INIT(u, VECTOR_TOTAL(v));
 
@@ -103,7 +110,8 @@ vector fvector_copy(vector v) {
     return u;
 }
 
-void fvector_fn(vector *v, f32 (*f)(f32)) {
+void fvector_fn(vector *v, f32 (*f)(f32))
+{
     f32 element;
     for (f32 i = 0; i < VECTOR_TOTAL(*v); i++) {
         element = f(VECTOR_GET(*v, f32, i));
@@ -113,7 +121,8 @@ void fvector_fn(vector *v, f32 (*f)(f32)) {
 
 // Equality
 
-bool fvector_equal(vector u, vector v) {
+bool fvector_equal(vector u, vector v)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {return false;}
 
@@ -127,7 +136,8 @@ bool fvector_equal(vector u, vector v) {
 
 // Add
 
-vector fvector_add(vector v, vector u) {
+vector fvector_add(vector v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(u)) {
 	      LOG_ERROR("Action undefined on fvectors of different sizes: %f and %f", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -145,7 +155,8 @@ vector fvector_add(vector v, vector u) {
     return sum;
 }
 
-void fvector_add_to(vector *v, vector u) {
+void fvector_add_to(vector *v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(*v)) {
 	      LOG_ERROR("Action undefined on fvectors of different sizes: %f and %f", VECTOR_TOTAL(u), VECTOR_TOTAL(*v));
@@ -162,7 +173,8 @@ void fvector_add_to(vector *v, vector u) {
 
 // Subtract
 
-vector fvector_subtract(vector v, vector u) {
+vector fvector_subtract(vector v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {
 	      LOG_ERROR("Action undefined on fvectortors of different sizes: %f and %f", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -180,7 +192,8 @@ vector fvector_subtract(vector v, vector u) {
     return diff;
 }
 
-void fvector_subtract_from(vector *v, vector u) {
+void fvector_subtract_from(vector *v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(*v)) {
 	      LOG_ERROR("Action undefined on fvectortors of different sizes: %f and %f", VECTOR_TOTAL(u), VECTOR_TOTAL(*v));
@@ -197,7 +210,8 @@ void fvector_subtract_from(vector *v, vector u) {
 
 // Multi
 
-void fvector_scale(vector *v, f32 k) {
+void fvector_scale(vector *v, f32 k)
+{
 
     f32 element;
 
@@ -207,7 +221,8 @@ void fvector_scale(vector *v, f32 k) {
     }
 }
 
-vector fvector_multiply(vector v, vector u) {
+vector fvector_multiply(vector v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {
 	      LOG_ERROR("Action undefined on fvectortors of different sizes: %f and %f", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -225,7 +240,8 @@ vector fvector_multiply(vector v, vector u) {
     return multi;
 }
 
-void fvector_multiply_by(vector *v, vector u) {
+void fvector_multiply_by(vector *v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(*v)) {
 	      LOG_ERROR("Action undefined on fvectortors of different sizes: %f and %f", VECTOR_TOTAL(u), VECTOR_TOTAL(*v));
@@ -242,7 +258,8 @@ void fvector_multiply_by(vector *v, vector u) {
 
 // Divide
 
-void fvector_scalar_divide(vector *v, f32 k) {
+void fvector_scalar_divide(vector *v, f32 k)
+{
 
     f32 element;
 
@@ -254,7 +271,8 @@ void fvector_scalar_divide(vector *v, f32 k) {
 
 // Dot Product
 
-u32 fvector_dot(vector v, vector u) {
+u32 fvector_dot(vector v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {
 	      LOG_ERROR("Action undefined on fvectortors of different sizes: %f and %f", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -271,7 +289,8 @@ u32 fvector_dot(vector v, vector u) {
 
 // Cross Product
 
-vector fvector_cross(vector u, vector v) {
+vector fvector_cross(vector u, vector v)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {
 	      LOG_ERROR("Action undefined on fvectortors of different sizes: %f and %f", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -303,11 +322,13 @@ vector fvector_cross(vector u, vector v) {
     }
 }
 
-bool fvector_orthogonal(vector u, vector v) {
+bool fvector_orthogonal(vector u, vector v)
+{
     return (fvector_dot(u, v) == 0) ? true : false;
 }
 
-f32 fvector_magnitude_squared(vector v) {
+f32 fvector_magnitude_squared(vector v)
+{
 
     f32 mag_sq = 0;
 
@@ -318,11 +339,13 @@ f32 fvector_magnitude_squared(vector v) {
     return mag_sq;
 }
 
-f32 fvector_magnitude(vector v) {
+f32 fvector_magnitude(vector v)
+{
     return fabs(sqrt(fvector_magnitude_squared(v)));
 }
 
-void fvector_normalize(vector *v) {
+void fvector_normalize(vector *v)
+{
     f32 mag = fvector_magnitude(*v);
     fvector_scalar_divide(v, mag);
 }

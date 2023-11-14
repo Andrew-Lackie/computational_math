@@ -1,10 +1,11 @@
 #include <ivectors.h>
 
-/* ivectorfunctions */
+/* ivector functions */
 
 // New ivector
 
-vector ivector_va_list_construct(size_t dim, ...) {
+vector ivector_va_list_construct(size_t dim, ...)
+{
 
     VECTOR_INIT(v, dim);
 
@@ -23,7 +24,8 @@ vector ivector_va_list_construct(size_t dim, ...) {
     return v;
 }
 
-vector ivector_default_construct(size_t dim, i32 val) {
+vector ivector_default_construct(size_t dim, i32 val)
+{
 
     VECTOR_INIT(v, dim);
 
@@ -37,14 +39,16 @@ vector ivector_default_construct(size_t dim, i32 val) {
     return v;
 }
 
-vector ivector_zero_construct(size_t dim) {
+vector ivector_zero_construct(size_t dim)
+{
 
     vector v = ivector_default_construct(dim, 0);
 
     return v;
 }
 
-vector ivector_array_construct(size_t dim, i32 arr[]) {
+vector ivector_array_construct(size_t dim, i32 arr[])
+{
 
     VECTOR_INIT(v, dim);
 
@@ -58,7 +62,8 @@ vector ivector_array_construct(size_t dim, i32 arr[]) {
     return v;
 }
 
-void printiv(vector v) {
+void printiv(vector v)
+{
     printf("[ ");
 
     for (i32 i = 0; i < VECTOR_TOTAL(v); i++) {
@@ -74,7 +79,8 @@ void printiv(vector v) {
     printf("]\n");
 }
 
-char* ivector_to_str(vector v) {
+char* ivector_to_str(vector v)
+{
     size_t length = VECTOR_TOTAL(v) * (VECTOR_TOTAL(v) - 1) + 2;
 
     char* str = malloc(VECTOR_TOTAL(v) * (VECTOR_TOTAL(v) - 1) + 2);
@@ -90,7 +96,8 @@ char* ivector_to_str(vector v) {
     return str;
 }
 
-vector ivector_copy(vector v) {
+vector ivector_copy(vector v)
+{
 
     VECTOR_INIT(u, VECTOR_TOTAL(v));
 
@@ -103,7 +110,8 @@ vector ivector_copy(vector v) {
     return u;
 }
 
-void ivector_fn(vector *v, i32 (*f)(i32)) {
+void ivector_fn(vector *v, i32 (*f)(i32))
+{
 
     i32 elements;
 
@@ -115,7 +123,8 @@ void ivector_fn(vector *v, i32 (*f)(i32)) {
 
 // Equality
 
-bool ivector_equal(vector u, vector v) {
+bool ivector_equal(vector u, vector v)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {return false;}
 
@@ -129,7 +138,8 @@ bool ivector_equal(vector u, vector v) {
 
 // Add
 
-vector ivector_add(vector v, vector u) {
+vector ivector_add(vector v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(u)) {
 	      LOG_ERROR("Action undefined on ivectors of different sizes: %i and %i", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -147,7 +157,8 @@ vector ivector_add(vector v, vector u) {
     return sum;
 }
 
-void ivector_add_to(vector *v, vector u) {
+void ivector_add_to(vector *v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(*v)) {
 	      LOG_ERROR("Action undefined on ivectors of different sizes: %i and %i", VECTOR_TOTAL(u), VECTOR_TOTAL(*v));
@@ -164,7 +175,8 @@ void ivector_add_to(vector *v, vector u) {
 
 // Subtract
 
-vector ivector_subtract(vector v, vector u) {
+vector ivector_subtract(vector v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {
 	      LOG_ERROR("Action undefined on ivectortors of different sizes: %i and %i", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -182,7 +194,8 @@ vector ivector_subtract(vector v, vector u) {
     return diff;
 }
 
-void ivector_subtract_from(vector *v, vector u) {
+void ivector_subtract_from(vector *v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(*v)) {
 	      LOG_ERROR("Action undefined on ivectortors of different sizes: %i and %i", VECTOR_TOTAL(u), VECTOR_TOTAL(*v));
@@ -199,7 +212,8 @@ void ivector_subtract_from(vector *v, vector u) {
 
 // Multi
 
-void ivector_scale(vector *v, i32 k) {
+void ivector_scale(vector *v, i32 k)
+{
 
     i32 element;
 
@@ -209,7 +223,8 @@ void ivector_scale(vector *v, i32 k) {
     }
 }
 
-vector ivector_multiply(vector v, vector u) {
+vector ivector_multiply(vector v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {
 	      LOG_ERROR("Action undefined on ivectortors of different sizes: %i and %i", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -227,7 +242,8 @@ vector ivector_multiply(vector v, vector u) {
     return multi;
 }
 
-void ivector_multiply_by(vector *v, vector u) {
+void ivector_multiply_by(vector *v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(*v)) {
 	      LOG_ERROR("Action undefined on ivectortors of different sizes: %i and %i", VECTOR_TOTAL(u), VECTOR_TOTAL(*v));
@@ -244,7 +260,8 @@ void ivector_multiply_by(vector *v, vector u) {
 
 // Divide
 
-void ivector_scalar_divide(vector *v, i32 k) {
+void ivector_scalar_divide(vector *v, i32 k)
+{
 
     i32 element;
 
@@ -256,7 +273,8 @@ void ivector_scalar_divide(vector *v, i32 k) {
 
 // Dot Product
 
-u32 ivector_dot(vector v, vector u) {
+u32 ivector_dot(vector v, vector u)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {
 	      LOG_ERROR("Action undefined on ivectortors of different sizes: %i and %i", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -273,7 +291,8 @@ u32 ivector_dot(vector v, vector u) {
 
 // Cross Product
 
-vector ivector_cross(vector u, vector v) {
+vector ivector_cross(vector u, vector v)
+{
 
     if (VECTOR_TOTAL(u) != VECTOR_TOTAL(v)) {
 	      LOG_ERROR("Action undefined on ivectortors of different sizes: %i and %i", VECTOR_TOTAL(u), VECTOR_TOTAL(v));
@@ -305,11 +324,13 @@ vector ivector_cross(vector u, vector v) {
     }
 }
 
-bool ivector_orthogonal(vector u, vector v) {
+bool ivector_orthogonal(vector u, vector v)
+{
     return (ivector_dot(u, v) == 0) ? true : false;
 }
 
-i32 ivector_magnitude_squared(vector v) {
+i32 ivector_magnitude_squared(vector v)
+{
 
     i32 mag_sq = 0;
 
@@ -320,11 +341,13 @@ i32 ivector_magnitude_squared(vector v) {
     return mag_sq;
 }
 
-i32 ivector_magnitude(vector v) {
+i32 ivector_magnitude(vector v)
+{
     return fabs(sqrt(ivector_magnitude_squared(v)));
 }
 
-void ivector_normalize(vector *v) {
+void ivector_normalize(vector *v)
+{
     i32 mag = ivector_magnitude(*v);
     ivector_scalar_divide(v, mag);
 }

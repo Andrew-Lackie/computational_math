@@ -2,7 +2,8 @@
 
 // Multi
 
-static void* thread(void* arg) {
+static void* thread(void* arg)
+{
 
     struct thread_data *data;
     data = (struct thread_data *) arg;
@@ -51,7 +52,8 @@ static void* thread(void* arg) {
     return NULL;
 }
 
-void* naive(matrix A, void* arg, enum multi_t type, bool mthread, size_t total_threads) {
+void* naive(matrix A, void* arg, enum multi_t type, bool mthread, size_t total_threads)
+{
 
     void* ret;
 

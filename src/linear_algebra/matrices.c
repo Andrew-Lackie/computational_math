@@ -4,7 +4,8 @@
 
 // New vector
 
-matrix new_matrix(size_t n, size_t m) {
+matrix new_matrix(size_t n, size_t m)
+{
 
     matrix matrix = { .n = n, .m = m };
 
@@ -19,13 +20,15 @@ matrix new_matrix(size_t n, size_t m) {
     return matrix;
 }
 
-void free_matrix(matrix* A) {
+void free_matrix(matrix* A)
+{
     size_t size = (A->n * sizeof(f32) + (A->m * sizeof(f32)));
     void* block = (void*) A->elements;
     m_free(block, size, MEMORY_TAG_MATRIX);
 }
 
-matrix matrix_construct(size_t n, size_t m, f32 val) {
+matrix matrix_construct(size_t n, size_t m, f32 val)
+{
 
     matrix a = new_matrix(n, m);
 
@@ -38,7 +41,8 @@ matrix matrix_construct(size_t n, size_t m, f32 val) {
     return a;
 }
 
-matrix matrix_array_construct(size_t n, size_t m, f32 *arr[]) {
+matrix matrix_array_construct(size_t n, size_t m, f32 *arr[])
+{
 
     matrix a = new_matrix(n, m);
 
@@ -51,14 +55,16 @@ matrix matrix_array_construct(size_t n, size_t m, f32 *arr[]) {
     return a;
 }
 
-matrix matrix_zero(size_t n, size_t m) {
+matrix matrix_zero(size_t n, size_t m)
+{
 
     matrix zero = new_matrix(n, m);
 
     return zero;
 }
 
-matrix matrix_identity(size_t n, size_t m) {
+matrix matrix_identity(size_t n, size_t m)
+{
 
     if (n != m) {
 	      LOG_ERROR("Action undefined on non square matrixrices: rows %f and columns %f", n, m);
@@ -76,7 +82,8 @@ matrix matrix_identity(size_t n, size_t m) {
     return id;
 }
 
-vector matrix_get_col(size_t col, matrix A) {
+vector matrix_get_col(size_t col, matrix A)
+{
 
     col--;
 
@@ -90,7 +97,8 @@ vector matrix_get_col(size_t col, matrix A) {
 
 }
 
-vector matrix_get_row(size_t row, matrix A) {
+vector matrix_get_row(size_t row, matrix A)
+{
 
     row--;
 
@@ -103,7 +111,8 @@ vector matrix_get_row(size_t row, matrix A) {
     return v;
 }
 
-void printm(matrix matrix) {
+void printm(matrix matrix)
+{
 
     for (size_t i = 0; i < matrix.n; i++) {
         for (size_t j = 0; j < matrix.m; j++) {
@@ -122,7 +131,8 @@ void printm(matrix matrix) {
 
 // Transpose
 
-void matrix_transpose(matrix* A) {
+void matrix_transpose(matrix* A)
+{
 
     f32 temp;
 
@@ -137,7 +147,8 @@ void matrix_transpose(matrix* A) {
 
 // Equality
 
-bool matrix_equal(matrix A, matrix B) {
+bool matrix_equal(matrix A, matrix B)
+{
 
     if (A.n != B.n && A.m != B.m) {return false;}
 
@@ -153,7 +164,8 @@ bool matrix_equal(matrix A, matrix B) {
 
 // Freivalds’ algorithm
 
-static bool freivald(matrix A, matrix B, matrix C) {
+static bool freivald(matrix A, matrix B, matrix C)
+{
 
     if (A.n != B.n || A.m != B.m) {
 	      LOG_ERROR("Freivald's algorithm is only defined on square matrixrices of equal dimensions");
@@ -175,10 +187,8 @@ static bool freivald(matrix A, matrix B, matrix C) {
 
     f32 el1;
 
-    for (size_t i = 0; i < N; i++)
-    {
-        for (size_t j = 0; j < N; j++)
-        {
+    for (size_t i = 0; i < N; i++) {
+        for (size_t j = 0; j < N; j++) {
             el1 = *(f32*)br.vector_list.elements[i] + B.elements[i][j] * *(f32*)r.vector_list.elements[j];
             br.vector_list.elements[i] = (void*)&el1;
         }
@@ -190,8 +200,7 @@ static bool freivald(matrix A, matrix B, matrix C) {
     f32 el2;
 
     for (size_t i = 0; i < N; i++)
-        for (size_t j = 0; j < N; j++)
-        {
+        for (size_t j = 0; j < N; j++) {
             el2 = *(f32*)cr.vector_list.elements[i] + C.elements[i][j] * *(f32*)r.vector_list.elements[j];
             cr.vector_list.elements[i] = (void*)&el2;
         }
@@ -201,8 +210,7 @@ static bool freivald(matrix A, matrix B, matrix C) {
     f32 el3;
 
     for (size_t i = 0; i < N; i++)
-        for (size_t j = 0; j < N; j++)
-        {
+        for (size_t j = 0; j < N; j++) {
             el3 = *(f32*)axbr.vector_list.elements[i] + A.elements[i][j] * *(f32*)br.vector_list.elements[j];
             axbr.vector_list.elements[i] = (void*)&el3;
         }
@@ -221,7 +229,8 @@ static bool freivald(matrix A, matrix B, matrix C) {
 
 // Check if C is the product of AB
 
-bool matrix_is_product(matrix A, matrix B, matrix C, u32 k) {
+bool matrix_is_product(matrix A, matrix B, matrix C, u32 k)
+{
     for (size_t i = 0; i < k; i++)
         if (freivald(A, B, C) == false)
             return false;
@@ -230,7 +239,8 @@ bool matrix_is_product(matrix A, matrix B, matrix C, u32 k) {
 
 // Add
 
-matrix matrix_add(matrix A, matrix B) {
+matrix matrix_add(matrix A, matrix B)
+{
 
     if (A.n != B.n && A.m != B.m) {
 	      LOG_ERROR("Action undefined on matrixrices of different sizes: n1: %f, n2: %f and m1: %f, m2: %f", A.n, B.n, A.m, B.m);
@@ -247,7 +257,8 @@ matrix matrix_add(matrix A, matrix B) {
     return sum;
 }
 
-void matrix_add_to(matrix *A, matrix B) {
+void matrix_add_to(matrix *A, matrix B)
+{
     if (A->n != B.n) {
 	      LOG_ERROR("Action undefined on matrixrices of different sizes: n1: %f, n2: %f and m1: %f, m2: %f", A->n, B.n, A->m, B.m);
         exit(1);
@@ -262,7 +273,8 @@ void matrix_add_to(matrix *A, matrix B) {
 
 // Subtract
 
-matrix matrix_sub(matrix A, matrix B) {
+matrix matrix_sub(matrix A, matrix B)
+{
     if (A.n != B.n) {
 	      LOG_ERROR("Action undefined on matrixrices of different sizes: n1: %f, n2: %f and m1: %f, m2: %f", A.n, B.n, A.m, B.m);
         exit(1);
@@ -278,7 +290,8 @@ matrix matrix_sub(matrix A, matrix B) {
     return diff;
 }
 
-void matrix_sub_from(matrix *A, matrix B) {
+void matrix_sub_from(matrix *A, matrix B)
+{
     if (A->n != B.n) {
 	      LOG_ERROR("Action undefined on matrixrices of different sizes: n1: %f, n2: %f and m1: %f, m2: %f", A->n, B.n, A->m, B.m);
         exit(1);
@@ -291,7 +304,8 @@ void matrix_sub_from(matrix *A, matrix B) {
     }
 }
 
-matrix matrix_copy(matrix A) {
+matrix matrix_copy(matrix A)
+{
 
     matrix cpy = new_matrix(A.n, A.m);
 

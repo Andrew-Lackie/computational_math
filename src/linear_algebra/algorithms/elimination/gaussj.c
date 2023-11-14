@@ -1,6 +1,7 @@
 #include <gaussj.h>
 
-void gaussj_dcmp(matrix *a, matrix *b) {
+void gaussj_dcmp(matrix *a, matrix *b)
+{
     vector indxc, indxr, ipiv;
     size_t i, icol, irow, j, k, l, ll;
     f32 big, dum, pivinv, temp;

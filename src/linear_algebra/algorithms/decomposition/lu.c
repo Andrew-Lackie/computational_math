@@ -1,6 +1,7 @@
 #include <lu.h>
 
-void lu_dcmp(matrix *A, vector *indx, f32 *d) {
+void lu_dcmp(matrix *A, vector *indx, f32 *d)
+{
 
     size_t i, imax, j, k;
     f32 big, dum, sum, temp;
@@ -62,7 +63,8 @@ void lu_dcmp(matrix *A, vector *indx, f32 *d) {
     vector_free(&vv);
 }
 
-void lubskb(matrix *a, vector *indx, vector b) {
+void lubskb(matrix *a, vector *indx, vector b)
+{
 
     size_t i, ii = 0, ip, j;
     f32 sum;
