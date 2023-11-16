@@ -1,16 +1,8 @@
 #ifndef _FVECTORS_H
 #define _FVECTORS_H
 
-#include <defines.h>
-#include <memory.h>
 #include <vectors.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
 #include <math.h>
-#include <complex.h>
 
 #define ARRAY_SIZE(a) ( (sizeof(a)) / sizeof((a.elements[0])) )
 

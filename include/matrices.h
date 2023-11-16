@@ -1,42 +1,21 @@
 #ifndef _MATRICES_H
 #define _MATRICES_H
 
-#include <strings.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <unistd.h>
-#include <threads.h>
-#include "fvectors.h"
-#include "ivectors.h"
-#include <defines.h>
 #include "util.h"
+#include "fvectors.h"
 
 /**
  * Vector struct
  **/
 
-typedef struct {
-    size_t n;
-    size_t m;
-    f32 **elements;
-} matrix;
+typedef struct { size_t n; size_t m; f32 **elements; } matrix;
 
-enum multi_t {
-    MATxMAT = 0,
-    MATxVEC = 1
-};
+enum multi_t { MATxMAT = 0, MATxVEC = 1 };
 
 struct data {
     matrix A;
-    union {
-        vector x;
-        matrix B;
-    };
-    union {
-        vector b;
-        matrix C;
-    };
+    union { vector x; matrix B; };
+    union { vector b; matrix C; };
     enum multi_t type;
 };
 
@@ -47,7 +26,7 @@ struct data {
 matrix new_matrix(size_t n, size_t m);
 
 /**
- * Function to create a new nxm matrixrix mapped by function f
+ * Function to create a new nxm matrix mapped by function f
  **/
 
 matrix new_matrix(size_t n, size_t m);
